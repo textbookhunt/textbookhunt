@@ -9,5 +9,8 @@
     { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  ],
+  "defaultBook": [
+    {"name":  "Introduction to Real Analysis", "price":  40, "owner":  "john@foo.com", "condition":  "excellent", "description":  "Math 331 textbook", "image":  "https://images-na.ssl-images-amazon.com/images/I/81I2w0QnKfL.jpg"}
   ]
 }
