@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import swal from 'sweetalert';
 import { Accounts } from 'meteor/accounts-base';
 
 /**
@@ -26,7 +27,9 @@ class Signup extends React.Component {
       if (err) {
         this.setState({ error: err.reason });
       } else {
+        swal('Success', 'Thanks for registering', 'success');
         this.setState({ error: '', redirectToReferer: true });
+
       }
     });
   }
@@ -36,7 +39,7 @@ class Signup extends React.Component {
     const { from } = this.props.location.state || { from: { pathname: '/add' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
-      return <Redirect to={from}/>;
+     return <Redirect to={from}/>;
     }
     return (
       <Container>
