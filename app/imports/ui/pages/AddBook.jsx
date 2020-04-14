@@ -48,7 +48,7 @@ class AddBook extends React.Component {
             <AutoForm ref={ref => { fRef = ref; }} schema={formSchema} onSubmit={data => this.submit(data, fRef)} >
               <Segment>
                 <TextField name='name'/>
-                <NumField name='price' decimal={false}/>
+                <NumField name='price' decimal={true}/>
                 <TextField name = 'image'/>
                 <SelectField name='condition'/>
                 <LongTextField name = 'description'/>

@@ -41,7 +41,7 @@ class EditBook extends React.Component {
             <AutoForm schema={BookSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
               <Segment>
                 <TextField name='name'/>
-                <NumField name='price' decimal={false}/>
+                <NumField name='price' decimal={true}/>
                 <TextField name = 'image'/>
                 <SelectField name='condition'/>
                 <LongTextField name = 'description'/>
