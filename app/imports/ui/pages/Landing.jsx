@@ -1,22 +1,34 @@
 import React from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Divider, Header } from 'semantic-ui-react';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
   render() {
     return (
-        <Grid verticalAlign='middle' textAlign='center' container>
-
-          <Grid.Column width={4}>
-            <Image size='small' circular src="/images/meteor-logo.png"/>
-          </Grid.Column>
-
-          <Grid.Column width={8}>
-            <h1>Welcome to this template</h1>
-            <p>Now get to work and modify this app!</p>
-          </Grid.Column>
-
-        </Grid>
+        <div>
+          <div className='landing-header-background'/>
+          <div className='landing-bg-text'>TextBook Hunt</div>
+          <Divider horizontal style={{ padding: 50 }}>
+            <Header as='h1'>
+              Welcome to Textbook Hunt!
+            </Header>
+          </Divider>
+          <Divider horizontal style={{ padding: 50 }}>
+            <Header as='h1'>
+              Login or Create an Account
+            </Header>
+          </Divider>
+          <Divider horizontal style={{ padding: 50 }}>
+            <Header as='h1'>
+              Browse Textbooks on Sale
+            </Header>
+          </Divider>
+          <Divider horizontal style={{ padding: 50 }}>
+            <Header as='h1'>
+              Sell Your Textbooks
+            </Header>
+          </Divider>
+        </div>
     );
   }
 }
