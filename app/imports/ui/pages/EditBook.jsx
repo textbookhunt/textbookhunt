@@ -45,7 +45,7 @@ class EditBook extends React.Component {
                 <TextField name = 'image'/>
                 <SelectField name='condition'/>
                 <LongTextField name = 'description'/>
-                <SubmitField value='Submit'/>
+                <SubmitField value='Update Information'/>
                 <ErrorsField/>
               </Segment>
             </AutoForm>
