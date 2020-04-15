@@ -8,26 +8,41 @@ class Landing extends React.Component {
         <div>
           <div className='landing-header-background'/>
           <div className='landing-bg-text'>TextBook Hunt</div>
-          <Divider horizontal style={{ padding: 50 }}>
-            <Header as='h1'>
-              Welcome to Textbook Hunt!
-            </Header>
-          </Divider>
-          <Divider horizontal style={{ padding: 50 }}>
-            <Header as='h1'>
-              Login or Create an Account
-            </Header>
-          </Divider>
-          <Divider horizontal style={{ padding: 50 }}>
-            <Header as='h1'>
-              Browse Textbooks on Sale
-            </Header>
-          </Divider>
-          <Divider horizontal style={{ padding: 50 }}>
-            <Header as='h1'>
-              Sell Your Textbooks
-            </Header>
-          </Divider>
+          <div className='black-landing-item'>
+            <Divider horizontal style={{ padding: 50, margin: 0 }}>
+              <Header as='h1' inverted>
+                Welcome to Textbook Hunt!
+              </Header>
+            </Divider>
+            <div className='landing-text'>DESCRPTION prijpifgjspifghsdfjgdjfhn</div>
+          </div>
+
+          <div className='yellow-landing-item'>
+            <Divider horizontal style={{ padding: 50, margin: 0 }}>
+              <Header as='h1'>
+                Login or Create an Account
+              </Header>
+            </Divider>
+            <div className='landing-text'>DESCRPTION prijpifgjspifghsdfjgdjfhn</div>
+          </div>
+
+          <div className='black-landing-item'>
+            <Divider horizontal style={{ padding: 50, margin: 0 }}>
+              <Header as='h1' inverted>
+                Browse Textbooks on Sale
+              </Header>
+            </Divider>
+            <div className='landing-text'>DESCRPTION prijpifgjspifghsdfjgdjfhn</div>
+          </div>
+
+          <div className='yellow-landing-item'>
+            <Divider horizontal style={{ padding: 50, margin: 0 }}>
+              <Header as='h1'>
+                Sell Your Textbooks
+              </Header>
+            </Divider>
+            <div className='landing-text'>DESCRPTION prijpifgjspifghsdfjgdjfhn</div>
+          </div>
         </div>
     );
   }
