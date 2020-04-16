@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Table, Header, Loader } from 'semantic-ui-react';
+import { Container, Header, Loader, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
@@ -18,21 +18,9 @@ class ListBookAdmin extends React.Component {
     return (
         <Container>
           <Header as="h2" textAlign="center">List Book</Header>
-          <Table celled>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Image</Table.HeaderCell>
-                <Table.HeaderCell>Price</Table.HeaderCell>
-                <Table.HeaderCell>Condition</Table.HeaderCell>
-                <Table.HeaderCell>Description</Table.HeaderCell>
-                <Table.HeaderCell>Edit</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {this.props.books.map((book) => <BookItemAdmin key={book._id} book={book} />)}
-            </Table.Body>
-          </Table>
+          <Card.Group>
+            {this.props.books.map((book) => <BookItemAdmin key={book._id} book={book} />)}
+          </Card.Group>
         </Container>
     );
   }
