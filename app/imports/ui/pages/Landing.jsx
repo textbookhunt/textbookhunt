@@ -33,12 +33,14 @@ class Landing extends React.Component {
             <Grid container relaxed divided columns='equal'>
               <Grid.Column>
                 <div className='landing-text'>
+                  <Image src = 'images/signin.png' size = 'massive' centered/>
                   To Sign in, click the user icon on the top right of the website. After that, enter your email and
                   password.
                 </div>
               </Grid.Column>
               <Grid.Column>
                 <div className='landing-text'>
+                  <Image src = 'images/register.png' size = 'massive' centered/>
                   To Sign up, click the user icon on the tip right of the website. Enter your email, password, and any
                   other needed information. Click submit and you&apos;re done!
                 </div>
