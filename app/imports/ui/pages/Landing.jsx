@@ -52,6 +52,7 @@ class Landing extends React.Component {
                 Browse Textbooks on Sale
               </Header>
             </Divider>
+            <Image src = 'images/bookpost.png' size = 'massive' centered/>
             <Container>
             <div className='landing-text'>
               To browse textbook listings, first sign in. Then click the "view listings" tab on the nav bar. From here
