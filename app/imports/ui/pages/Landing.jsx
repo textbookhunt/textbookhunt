@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Header, Grid, Container } from 'semantic-ui-react';
+import { Divider, Header, Grid, Container, Image } from 'semantic-ui-react';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
@@ -40,7 +40,7 @@ class Landing extends React.Component {
               <Grid.Column>
                 <div className='landing-text'>
                   To Sign up, click the user icon on the tip right of the website. Enter your email, password, and any
-                  other needed information. Click submite and you're done!
+                  other needed information. Click submit and you&apos;re done!
                 </div>
               </Grid.Column>
             </Grid>
@@ -67,8 +67,9 @@ class Landing extends React.Component {
               </Header>
             </Divider>
             <Container>
+              <Image src = 'images/postimage.png' size = 'massive' centered/>
               <div className='landing-text'>
-                To start selling textbooks, first sign in. Then, click on the "post listing" tab on the navigation bar.
+                To start selling textbooks, first sign in. Then, click on the post listing tab on the navigation bar.
                 Fill out the required information and click submit. Your textbook should not be visible to anyone
                 looking
                 to buy.
