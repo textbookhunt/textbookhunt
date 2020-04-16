@@ -44,7 +44,11 @@ class AddBook extends React.Component {
     return (
         <Grid container centered>
           <Grid.Column>
+<<<<<<< Updated upstream
             <Header as="h2" textAlign="center" inverted>Post Textbook</Header>
+=======
+            <Header as="h2" textAlign="center">Sale Textbook</Header>
+>>>>>>> Stashed changes
             <AutoForm ref={ref => { fRef = ref; }} schema={formSchema} onSubmit={data => this.submit(data, fRef)} >
               <Segment>
                 <TextField name='name'/>

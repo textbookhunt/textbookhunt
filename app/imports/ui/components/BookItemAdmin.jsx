@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
@@ -7,21 +7,27 @@ import { withRouter, Link } from 'react-router-dom';
 class BookItemAdmin extends React.Component {
   render() {
     return (
-        <Table.Row>
-          <Table.Cell>{this.props.book.name}</Table.Cell>
-          <Table.Cell>{this.props.book.image}</Table.Cell>
-          <Table.Cell>{this.props.book.price}</Table.Cell>
-          <Table.Cell>{this.props.book.quantity}</Table.Cell>
-          <Table.Cell>{this.props.book.condition}</Table.Cell>
-          <Table.Cell>{this.props.book.description}</Table.Cell>
-          <Table.Cell>
-            <Link to={`/edit/${this.props.book._id}`}>Edit</Link>
-          </Table.Cell>
-        </Table.Row>
+        <Card>
+          <Image src= {this.props.book.image} />
+          <Card.Content>
+            <Card.Header>{this.props.book.name}</Card.Header>
+            <Card.Meta>
+              {this.props.book.price}
+            </Card.Meta>
+            <Card.Description>
+              {this.props.book.description}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <a>
+              {this.props.book.condition}
+              <Link to={`/edit/${this.props.book._id}`}>Edit</Link>
+            </a>
+          </Card.Content>
+        </Card>
     );
   }
 }
-
 /** Require a document to be passed to this component. */
 BookItemAdmin.propTypes = {
   book: PropTypes.object.isRequired,
