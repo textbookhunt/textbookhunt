@@ -7,7 +7,7 @@ class Landing extends React.Component {
     return (
         <div>
           <div className='landing-header-background'/>
-          <div className='landing-bg-text'>TextBook Hunt</div>
+          <div className='landing-bg-text'>Textbook Hunt</div>
           <div className='black-landing-item'>
             <Divider horizontal style={{ padding: 50, margin: 0 }}>
               <Header as='h1' inverted>
@@ -16,7 +16,7 @@ class Landing extends React.Component {
             </Divider>
             <Container>
             <div className='landing-text'>
-              Testbook Hunt is a platform that helps provide students with an easy way to buy and sell textbooks from
+              Textbook Hunt is a platform that helps provide students with an easy way to buy and sell textbooks from
               other students.<br/><br/>
               If you are a first time user, feel free to refer to the user guide below. If not, simply sign in to your
               account and enjoy!<br/>
