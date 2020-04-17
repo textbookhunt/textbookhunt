@@ -22,6 +22,7 @@ class Listing extends React.Component {
           <p align="center"><b>Condition:</b> ----</p>
           <p align="center"><b>Description:</b> ------</p>
           <p align="center"><Link>Place a request to buy</Link></p>
+          <p align="right"><Link>Edit</Link></p>
         </Container>
     );
   }
