@@ -12,8 +12,8 @@ class BookItem extends React.Component {
           <Card.Content>
             <Card.Header>{this.props.book.name}</Card.Header>
             <Card.Meta>
-              {this.props.book.price} <br/>
-              {this.props.book.condition}
+              ${this.props.book.price} <br/>
+              Condition: {this.props.book.condition}
             </Card.Meta>
             <Card.Description>
               {this.props.book.description}

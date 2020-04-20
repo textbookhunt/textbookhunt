@@ -22,9 +22,15 @@ class EditBook extends React.Component {
   /** On successful submit, insert the data. */
   submit(data) {
     const { name, price, description, image, owner, condition, _id } = data;
-    Books.update(_id, { $set: { name, price, description, image, owner, condition } }, (error) => (error ?
-      swal('Error', error.message, 'error') :
-      swal('Success', 'Item updated successfully', 'success')));
+    Books.update(_id, { $set: { name, price, description, image, owner, condition } }, (error) => {
+      if(error){
+        swal('Error', error.message, 'error');
+      }
+      else{
+        swal('Success', 'Book updated successfully', 'success');
+        this.props.history.push('/list', { some: 'state' })
+      }
+    })
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
