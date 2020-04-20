@@ -21,7 +21,7 @@ class BookItemAdmin extends React.Component {
           <Card.Content extra>
             <a>
               {this.props.book.condition}
-              <Link to={`/edit/${this.props.book._id}`}>Edit</Link>
+              <Link to={`/editBook/${this.props.book._id}`}>Edit Book Information</Link>
             </a>
           </Card.Content>
         </Card>

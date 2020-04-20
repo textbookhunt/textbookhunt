@@ -23,8 +23,8 @@ class EditBook extends React.Component {
   submit(data) {
     const { name, price, description, image, owner, condition, _id } = data;
     Books.update(_id, { $set: { name, price, description, image, owner, condition } }, (error) => (error ?
-      swal('Error', error.message, 'error') :
-      swal('Success', 'Item updated successfully', 'success')));
+        swal('Error', error.message, 'error') :
+        swal('Success', 'Item updated successfully', 'success')));
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -37,7 +37,7 @@ class EditBook extends React.Component {
     return (
         <Grid container centered>
           <Grid.Column>
-            <Header as="h2" textAlign="center">Edit Post</Header>
+            <Header as="h2" textAlign="center">Edit Book Information</Header>
             <AutoForm schema={BookSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
               <Segment>
                 <TextField name='name'/>

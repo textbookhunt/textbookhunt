@@ -11,12 +11,12 @@ import ListBook from '../pages/ListBook';
 import ListBookAdmin from '../pages/ListBookAdmin';
 import AddBook from '../pages/AddBook';
 import EditBook from '../pages/EditBook';
+import EditProfile from '../pages/EditProfile';
 import Profile from '../pages/Profile';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
-import Listing from '../pages/Listing';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -32,10 +32,10 @@ class App extends React.Component {
               <ProtectedRoute path="/list" component={ListBook}/>
               <ProtectedRoute path="/profile" component={Profile}/>
               <ProtectedRoute path="/add" component={AddBook}/>
-              <ProtectedRoute path="/edit/:_id" component={EditBook}/>
+              <ProtectedRoute path="/editBook/:_id" component={EditBook}/>
+              <ProtectedRoute path="/editProfile/:_id" component={EditProfile}/>
               <AdminProtectedRoute path="/admin" component={ListBookAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
-              <ProtectedRoute path="/listing" component={Listing}/>
               <Route component={NotFound}/>
             </Switch>
             <Footer/>
@@ -51,16 +51,16 @@ class App extends React.Component {
  * @param {any} { component: Component, ...rest }
  */
 const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      const isLogged = Meteor.userId() !== null;
-      return isLogged ?
-          (<Component {...props} />) :
-          (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
-      );
-    }}
-  />
+    <Route
+        {...rest}
+        render={(props) => {
+          const isLogged = Meteor.userId() !== null;
+          return isLogged ?
+              (<Component {...props} />) :
+              (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+              );
+        }}
+    />
 );
 
 /**
