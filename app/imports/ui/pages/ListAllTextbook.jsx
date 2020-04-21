@@ -4,13 +4,13 @@ import { Container, Card, Header, Loader, Table } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
-import BookItem from '../components/BookItem';
+import TextBooks from '../components/Books';
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
-class ListBook extends React.Component {
+class ListTextBook extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
-    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+    return (this.props.ready) ? this.renderPage() : <Loader active>waiting for data</Loader>;
   }
 
   /** Render the page once subscriptions have been received. */
@@ -19,7 +19,7 @@ class ListBook extends React.Component {
         <Container>
           <Header as="h2" textAlign="center">List Book</Header>
           <Card.Group>
-            {this.props.books.map((book) => <BookItem key={book._id} book={book} />)}
+            {this.props.books.map((book) => <TextBooks key={book._id} book={book} />)}
           </Card.Group>
         </Container>
     );
@@ -27,7 +27,7 @@ class ListBook extends React.Component {
 }
 
 /** Require an array of Book documents in the props. */
-ListBook.propTypes = {
+ListTextBook.propTypes = {
   books: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
@@ -35,9 +35,9 @@ ListBook.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Book documents.
-  const subscription = Meteor.subscribe('Book');
+  const subscription = Meteor.subscribe('AllBooks');
   return {
-    books: Books.find({}).fetch(),
+    books: Books.find().fetch(),
     ready: subscription.ready(),
   };
-})(ListBook);
+})(ListTextBook);

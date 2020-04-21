@@ -7,7 +7,6 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import ListBook from '../pages/ListBook';
 import ListBookAdmin from '../pages/ListBookAdmin';
 import AddBook from '../pages/AddBook';
 import EditBook from '../pages/EditBook';
@@ -16,7 +15,7 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
-
+import ListTextBook from '../pages/ListAllTextbook';
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
   render() {
@@ -28,7 +27,7 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/list" component={ListBook}/>
+              <Route path="/listall" component={ListTextBook}/>
               <ProtectedRoute path="/profile" component={Profile}/>
               <ProtectedRoute path="/add" component={AddBook}/>
               <ProtectedRoute path="/edit/:_id" component={EditBook}/>
