@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader } from 'semantic-ui-react';
+import { Card, Container, Header, Image, Loader, Menu } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
 
@@ -17,12 +17,19 @@ class Listing extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Header as="h2" textAlign="center">Book Name</Header>
-          <p align="center"><b>Price:</b> $----</p>
-          <p align="center"><b>Condition:</b> ----</p>
-          <p align="center"><b>Description:</b> ------</p>
+          <Image src= {this.props.book.image} />
+          <Header as="h2" textAlign="center">{this.props.book.name}</Header>
+          <p align="center"><b>Price:</b> $  {this.props.book.price}</p>
+          <p align="center"><b>Condition:</b> {this.props.book.condition}</p>
+          <p align="center"><b>Description:</b>  {this.props.book.description}</p>
+          <p align="center"><b>Sold by:</b>  {this.props.book.owner}</p>
           <p align="center"><Link>Place a request to buy</Link></p>
-          <p align="right"><Link>Edit</Link></p>
+
+
+          {(this.props.currentUser ===this.props.book.owner) ?  (
+              [
+                <p align="right"><Link to={`/editBook/${this.props.book._id}`}>Edit</Link></p>]
+          ) : ''}
         </Container>
     );
   }
@@ -30,16 +37,24 @@ class Listing extends React.Component {
 
 /** Require an array of Book documents in the props. */
 Listing.propTypes = {
-  books: PropTypes.array.isRequired,
+  book: PropTypes.object,
   ready: PropTypes.bool.isRequired,
+  currentUser: PropTypes.string,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({match}) => {
   // Get access to Book documents.
-  const subscription = Meteor.subscribe('Book');
+  console.log(match.params.id);
+  const bookId = match.params.id;
+  console.log(bookId);
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+ // const owner = Meteor.user().username;
+//  console.log("owner is "+owner);
+  const subscription = Meteor.subscribe('AllBook');
   return {
-    books: Books.find({}).fetch(),
+    book: Books.findOne(bookId),
     ready: subscription.ready(),
+    currentUser,
   };
 })(Listing);
