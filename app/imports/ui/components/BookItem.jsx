@@ -10,7 +10,7 @@ class BookItem extends React.Component {
         <Card>
           <Image src= {this.props.book.image} />
           <Card.Content>
-            <Card.Header>{this.props.book.name}</Card.Header>
+            <Card.Header><Link to={`/listing/${this.props.book._id}`}>{this.props.book.name}</Link></Card.Header>
             <Card.Meta>
               {this.props.book.price} <br/>
               {this.props.book.condition}
