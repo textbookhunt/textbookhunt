@@ -18,9 +18,9 @@ class Listing extends React.Component {
     return (
         <Container>
           <Header as="h2" textAlign="center">Book Name</Header>
-          <p align="center"><b>Price:</b> $----</p>
-          <p align="center"><b>Condition:</b> ----</p>
-          <p align="center"><b>Description:</b> ------</p>
+          <p align="center"><b>Price:</b> ${this.props.item.price}</p>
+          <p align="center"><b>Condition:</b> {this.props.item.condition}</p>
+          <p align="center"><b>Description:</b> {this.props.item.description}</p>
           <p align="center"><Link>Place a request to buy</Link></p>
           <p align="right"><Link>Edit</Link></p>
         </Container>
@@ -30,16 +30,17 @@ class Listing extends React.Component {
 
 /** Require an array of Book documents in the props. */
 Listing.propTypes = {
-  books: PropTypes.array.isRequired,
+  item: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({match}) => {
+  const bookId = match.params._id;
   // Get access to Book documents.
   const subscription = Meteor.subscribe('Book');
   return {
-    books: Books.find({}).fetch(),
+    item: Books.findOne(bookId),
     ready: subscription.ready(),
   };
 })(Listing);
