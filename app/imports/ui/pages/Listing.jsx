@@ -17,18 +17,21 @@ class Listing extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Image src= {this.props.book.image} />
-          <Header as="h2" textAlign="center">{this.props.book.name}</Header>
-          <p align="center"><b>Price:</b> $  {this.props.book.price}</p>
-          <p align="center"><b>Condition:</b> {this.props.book.condition}</p>
-          <p align="center"><b>Description:</b>  {this.props.book.description}</p>
-          <p align="center"><b>Sold by:</b>  {this.props.book.owner}</p>
+
+          <Image src= {this.props.item.image} />
+
+
+          <Header as="h2" textAlign="center">{this.props.item.name}</Header>
+          <p align="center"><b>Price:</b> ${this.props.item.price}</p>
+          <p align="center"><b>Condition:</b> {this.props.item.condition}</p>
+          <p align="center"><b>Description:</b> {this.props.item.description}</p>
+
           <p align="center"><Link>Place a request to buy</Link></p>
 
 
-          {(this.props.currentUser ===this.props.book.owner) ?  (
+          {(this.props.currentUser ===this.props.item.owner) ?  (
               [
-                <p align="right"><Link to={`/editBook/${this.props.book._id}`}>Edit</Link></p>]
+                <p align="right"><Link to={`/editBook/${this.props.item._id}`}>Edit</Link></p>]
           ) : ''}
         </Container>
     );
@@ -37,13 +40,15 @@ class Listing extends React.Component {
 
 /** Require an array of Book documents in the props. */
 Listing.propTypes = {
-  book: PropTypes.object,
+
+  item: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({match}) => {
+
   // Get access to Book documents.
   console.log(match.params.id);
   const bookId = match.params.id;
@@ -53,7 +58,10 @@ export default withTracker(({match}) => {
 //  console.log("owner is "+owner);
   const subscription = Meteor.subscribe('AllBook');
   return {
-    book: Books.findOne(bookId),
+
+
+    item: Books.findOne(bookId),
+
     ready: subscription.ready(),
     currentUser,
   };
