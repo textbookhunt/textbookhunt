@@ -32,12 +32,12 @@ class AddNotes extends React.Component {
     return (
             <AutoForm ref={ref => { fRef = ref; }} schema={NoteSchema} onSubmit={data => this.submit(data, fRef)} >
               <Segment>
-                <TextField label="Add a timestamped note" name='note'/>
+                <TextField label="Add a Comment" name='note'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
                 <HiddenField name='owner' value={this.props.owner}/>
                 <HiddenField name='contactId' value={this.props.contactId}/>
-                <HiddenField name='createdAt' value={new Date()}/>
+                <HiddenField name='date' value={new Date()}/>
               </Segment>
             </AutoForm>
     );

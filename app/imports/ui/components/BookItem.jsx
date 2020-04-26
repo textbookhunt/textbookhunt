@@ -30,6 +30,9 @@ class BookItem extends React.Component {
               {this.props.notes.map((note, index) => <Notes key={index} note={note}/>)}
             </Feed>
           </Card.Content>
+          <Card.Content extra>
+            <AddNotes owner={this.props.book.owner} contactId={this.props.book._id}/>
+          </Card.Content>
         </Card>
     );
   }

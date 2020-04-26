@@ -18,7 +18,7 @@ class Listing extends React.Component {
     return (
         <Container>
 
-          <Image src= {this.props.item.image} centered/>
+          <Image src= {this.props.item.image} size={'large'} centered/>
 
 
           <Header as="h2" textAlign="center">{this.props.item.name}</Header>
