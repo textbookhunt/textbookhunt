@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Books } from '../../api/book/Book';
+import { Notes } from '../../api/notes/Notes';
 import { Profiles } from '../../api/profile/Profile';
 
 /** This subscription publishes only the documents associated with the logged in user */
@@ -30,6 +31,14 @@ Meteor.publish('Profile', function publish() {
   if (this.userId) {
     const username = Meteor.users.findOne(this.userId).username;
     return Profiles.find({ owner: username });
+  }
+  return this.ready();
+});
+
+Meteor.publish('Notes', function publish() {
+  if (this.userId) {
+    const username = Meteor.users.findOne(this.userId).username;
+    return Notes.find({ owner: username });
   }
   return this.ready();
 });

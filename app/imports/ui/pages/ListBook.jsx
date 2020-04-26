@@ -4,7 +4,9 @@ import { Container, Card, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
+import { Notes } from '../../api/notes/Notes';
 import BookItem from '../components/BookItem';
+
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class ListBook extends React.Component {
 
@@ -19,7 +21,9 @@ class ListBook extends React.Component {
         <Container>
           <Header as="h2" textAlign="center">List Book</Header>
           <Card.Group>
-            {this.props.books.map((book) => <BookItem key={book._id} book={book} />)}
+            {this.props.books.map((book, index) => <BookItem key={index}
+                                                     book={book}
+                                                     notes={this.props.notes.filter(note => (note.contactId === book._id))}/>)}
           </Card.Group>
         </Container>
     );
@@ -29,6 +33,7 @@ class ListBook extends React.Component {
 /** Require an array of Book documents in the props. */
 ListBook.propTypes = {
   books: PropTypes.array.isRequired,
+  notes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -36,8 +41,10 @@ ListBook.propTypes = {
 export default withTracker(() => {
   // Get access to Book documents.
   const subscription = Meteor.subscribe('AllBook');
+  const subscription2 = Meteor.subscribe('Notes');
   return {
     books: Books.find({}).fetch(),
-    ready: subscription.ready(),
+    notes: Notes.find({}).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(ListBook);
