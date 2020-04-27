@@ -13,7 +13,8 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', error: '', redirectToReferer: false };
+    this.state = { email: '', password: '', firstName: '', lastName: '', major: '',
+      error: '', redirectToReferer: false };
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -23,9 +24,7 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit = () => {
-    const { email, password } = this.state;
-    const major = 'default';
-    const description = 'default';
+    const { email, password, firstName, lastName, major } = this.state;
     const user = email;
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
@@ -36,7 +35,7 @@ class Signup extends React.Component {
 
       }
     });
-    UserInfo.insert({ user, major, description });
+    UserInfo.insert({ user, firstName, lastName, major });
   }
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
@@ -71,6 +70,27 @@ class Signup extends React.Component {
                       name="password"
                       placeholder="Password"
                       type="password"
+                      onChange={this.handleChange}
+                  />
+                  <Form.Input
+                      label="First Name"
+                      name="firstName"
+                      type="firstName"
+                      placeholder="First Name"
+                      onChange={this.handleChange}
+                  />
+                  <Form.Input
+                      label="Last Name"
+                      name="lastName"
+                      type="lastName"
+                      placeholder="Last Name"
+                      onChange={this.handleChange}
+                  />
+                  <Form.Input
+                      label="Major"
+                      name="major"
+                      type="major"
+                      placeholder="Major"
                       onChange={this.handleChange}
                   />
                   <Form.Button content="Submit"/>

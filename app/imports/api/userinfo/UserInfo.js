@@ -8,7 +8,8 @@ const UserInfo = new Mongo.Collection('UserInfo');
 /** Define a schema to specify the structure of each document in the collection. */
 const UserInfoSchema = new SimpleSchema({
   user: String,
-  description: String,
+  firstName: String,
+  lastName: String,
   major: String,
 }, { tracker: Tracker });
 
