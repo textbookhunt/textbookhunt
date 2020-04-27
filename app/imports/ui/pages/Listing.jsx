@@ -60,8 +60,8 @@ Listing.propTypes = {
 export default withTracker(({match}) => {
 
   // Get access to Book documents.
-  console.log(match.params.id);
-  const bookId = match.params.id;
+  console.log(match.params._id);
+  const bookId = match.params._id;
   console.log(bookId);
   const currentUser = Meteor.user() ? Meteor.user().username : '';
  // const owner = Meteor.user().username;
