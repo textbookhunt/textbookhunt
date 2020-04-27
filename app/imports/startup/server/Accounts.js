@@ -1,15 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import { UserInfo } from '../../api/userinfo/UserInfo';
 
 /* eslint-disable no-console */
 
 function createUser(email, password, role) {
   console.log(`  Creating user ${email}.`);
-  const major = 'default';
-  const description = 'default';
-  const user = email;
   const userID = Accounts.createUser({
     username: email,
     email: email,
@@ -18,7 +14,6 @@ function createUser(email, password, role) {
   if (role === 'admin') {
     Roles.addUsersToRoles(userID, 'admin');
   }
-  UserInfo.insert({ user, major, description });
 }
 
 /** When running app for first time, pass a settings file to set up a default user account. */

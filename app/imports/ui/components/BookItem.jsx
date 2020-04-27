@@ -32,6 +32,7 @@ class BookItem extends React.Component {
 /** Require a document to be passed to this component. */
 BookItem.propTypes = {
   book: PropTypes.object.isRequired,
+  Books: PropTypes.object.isRequired,
 };
 
 /** Wrap this component in withRouter since we use the <Link> React Router element. */

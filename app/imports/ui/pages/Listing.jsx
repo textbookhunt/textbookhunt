@@ -1,12 +1,15 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Card, Container, Header, Image, Loader, Menu } from 'semantic-ui-react';
+import { Container, Header, Image, Loader, Button, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Books } from '../../api/book/Book';
-import { Link, NavLink } from 'react-router-dom';
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
+  removeBook(docID) {
+    Books.remove(docID);
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -29,10 +32,18 @@ class Listing extends React.Component {
           <p align="center"><Link>Place a request to buy</Link></p>
 
 
-          {(this.props.currentUser ===this.props.item.owner) ?  (
+          {(this.props.currentUser === this.props.item.owner) ? (
               [
-                <p align="right"><Link to={`/editBook/${this.props.item._id}`}>Edit</Link></p>]
+                  <p align="right"><Link to={`/editBook/${this.props.item._id}`}>Edit</Link></p>]
           ) : ''}
+          {(this.props.currentUser === this.props.item.owner) ? (
+              [<p align="right">
+                <Link to={`/list`}>
+                  <Button icon onClick={() => this.removeBook(this.props.item._id)}><Icon name="trash"/></Button>
+                </Link>
+              </p>]
+          ) : ''}
+
         </Container>
     );
   }
@@ -40,7 +51,6 @@ class Listing extends React.Component {
 
 /** Require an array of Book documents in the props. */
 Listing.propTypes = {
-
   item: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
