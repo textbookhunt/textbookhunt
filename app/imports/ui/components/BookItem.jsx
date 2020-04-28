@@ -3,13 +3,12 @@ import { Card, Image, Feed } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { Notes } from '../../api/notes/Notes';
-import AddNotes from './AddNotes';
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class BookItem extends React.Component {
   render() {
     return (
         <Card>
-          <Image src= {this.props.book.image} />
+          <Image src= {this.props.book.image} size = "large"/>
           <Card.Content>
             <Card.Header><Link to={`/listing/${this.props.book._id}`}>{this.props.book.name}</Link></Card.Header>
             <Card.Meta>
@@ -30,9 +29,6 @@ class BookItem extends React.Component {
             <Feed>
               {this.props.notes.map((note, index) => <Notes key={index} note={note}/>)}
             </Feed>
-          </Card.Content>
-          <Card.Content extra>
-            <AddNotes owner={this.props.book.owner} contactId={this.props.book._id}/>
           </Card.Content>
         </Card>
     );
