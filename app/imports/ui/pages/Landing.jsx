@@ -54,13 +54,20 @@ class Landing extends React.Component {
                 Browse Textbooks on Sale
               </Header>
             </Divider>
-            <Image src = 'images/bookpost.png' size = 'massive' centered/>
-            <Container>
-            <div className='landing-text'>
-              To browse textbook listings, first sign in. Then click the "view listings" tab on the nav bar. From here
-              you can see and search for any listing you want.
-            </div>
-            </Container>
+            <Grid container relaxed divided columns='equal'>
+              <Grid.Column>
+                <div className='landing-text'>
+                  <Image src = 'images/bookpost.png' size = 'massive' centered/>
+                  Users can see a group of textbooks.
+                </div>
+              </Grid.Column>
+              <Grid.Column>
+                <div className='landing-text'>
+                  <Image src = 'images/listing.png' size = 'massive' centered/>
+                  Or for more specific information a user can click and see detailed information.
+                </div>
+              </Grid.Column>
+            </Grid>
           </div>
 
           <div className='yellow-landing-item'>
@@ -70,7 +77,7 @@ class Landing extends React.Component {
               </Header>
             </Divider>
             <Container>
-              <Image src = 'images/postimage.png' size = 'massive' centered/>
+              <Image src = 'images/postListing.png' size = 'massive' centered/>
               <div className='landing-text'>
                 To start selling textbooks, first sign in. Then, click on the post listing tab on the navigation bar.
                 Fill out the required information and click submit. Your textbook should not be visible to anyone
