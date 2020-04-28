@@ -4,30 +4,16 @@ import { AutoForm, ErrorsField, LongTextField, NumField, SelectField, SubmitFiel
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
-import SimpleSchema from 'simpl-schema';
-import { Books } from '../../api/book/Book';
-
-/** Create a schema to specify the structure of the data to appear in the form. */
-const formSchema = new SimpleSchema({
-  name: String,
-  price: Number,
-  description: String,
-  image: String,
-  condition: {
-    type: String,
-    allowedValues: ['excellent', 'good', 'fair', 'poor'],
-    defaultValue: 'good',
-  },
-});
+import { Books, BookSchema } from '../../api/book/Book';
 
 /** Renders the Page for adding a document. */
 class AddBook extends React.Component {
 
   /** On submit, insert the data. */
   submit(data, formRef) {
-    const { name, price, description, condition, image } = data;
+    const { name, price, description, condition, image, major } = data;
     const owner = Meteor.user().username;
-    Books.insert({ name, price, description, condition, image, owner },
+    Books.insert({ name, price, description, condition, image, owner, major },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -45,10 +31,11 @@ class AddBook extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Sell Textbook</Header>
-            <AutoForm ref={ref => { fRef = ref; }} schema={formSchema} onSubmit={data => this.submit(data, fRef)} >
+            <AutoForm ref={ref => { fRef = ref; }} schema={BookSchema} onSubmit={data => this.submit(data, fRef)} >
               <Segment>
                 <TextField name='name'/>
                 <NumField name='price' decimal={true}/>
+                <TextField name = 'major'/>
                 <TextField name = 'image'/>
                 <SelectField name='condition'/>
                 <LongTextField name = 'description'/>

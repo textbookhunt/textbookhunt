@@ -26,6 +26,7 @@ class Listing extends React.Component {
 
           <Header as="h2" textAlign="center">{this.props.item.name}</Header>
           <p align="center"><b>Price:</b> ${this.props.item.price}</p>
+          <p align="center"><b>Major:</b> {this.props.item.major}</p>
           <p align="center"><b>Condition:</b> {this.props.item.condition}</p>
           <p align="center"><b>Description:</b> {this.props.item.description}</p>
 

@@ -21,8 +21,8 @@ class EditBook extends React.Component {
 
   /** On successful submit, insert the data. */
   submit(data) {
-    const { name, price, description, image, owner, condition, _id } = data;
-    Books.update(_id, { $set: { name, price, description, image, owner, condition } }, (error) => (error ?
+    const { name, price, description, image, owner, condition, _id, major } = data;
+    Books.update(_id, { $set: { name, price, description, image, owner, major, condition } }, (error) => (error ?
         swal('Error', error.message, 'error') :
         swal('Success', 'Item updated successfully', 'success')));
   }
@@ -41,6 +41,7 @@ class EditBook extends React.Component {
             <AutoForm schema={BookSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
               <Segment>
                 <TextField name='name'/>
+                <TextField name = 'major'/>
                 <NumField name='price' decimal={true}/>
                 <TextField name = 'image'/>
                 <SelectField name='condition'/>

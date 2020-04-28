@@ -13,8 +13,9 @@ class BookItem extends React.Component {
           <Card.Content>
             <Card.Header><Link to={`/listing/${this.props.book._id}`}>{this.props.book.name}</Link></Card.Header>
             <Card.Meta>
-              {this.props.book.price} <br/>
-              {this.props.book.condition}
+              Price: {this.props.book.price} <br/>
+              Condition: {this.props.book.condition}<br/>
+              Major: {this.props.book.major}
             </Card.Meta>
             <Card.Description>
               {this.props.book.description}
