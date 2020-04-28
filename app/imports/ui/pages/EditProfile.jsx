@@ -13,11 +13,19 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
+import { Tracker } from 'meteor/tracker';
 import { UserInfo, UserInfoSchema } from '../../api/userinfo/UserInfo';
+
+const FormSchema = new SimpleSchema({
+  firstName: String,
+  lastName: String,
+  major: String,
+  description: String,
+}, { tracker: Tracker });
 
 /** Renders the Page for editing a single document. */
 class EditProfile extends React.Component {
-
   /** On successful submit, insert the data. */
   submit(data) {
     const { firstName, lastName, major, description, _id } = data;
@@ -43,9 +51,9 @@ class EditProfile extends React.Component {
                 <TextField name = 'lastName'/>
                 <TextField name = 'major'/>
                 <LongTextField name = 'description'/>
+                <TextField name='user'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
-                <HiddenField name='user' value={this.props.doc.user}/>
               </Segment>
             </AutoForm>
           </Grid.Column>
