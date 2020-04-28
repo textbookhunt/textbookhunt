@@ -14,7 +14,7 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = { email: '', password: '', firstName: '', lastName: '', major: '',
-      error: '', redirectToReferer: false };
+      description: '', error: '', redirectToReferer: false };
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -24,7 +24,7 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit = () => {
-    const { email, password, firstName, lastName, major } = this.state;
+    const { email, password, firstName, lastName, major, description } = this.state;
     const user = email;
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
@@ -35,7 +35,7 @@ class Signup extends React.Component {
 
       }
     });
-    UserInfo.insert({ user, firstName, lastName, major });
+    UserInfo.insert({ user, firstName, lastName, major, description });
   }
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
@@ -91,6 +91,13 @@ class Signup extends React.Component {
                       name="major"
                       type="major"
                       placeholder="Major"
+                      onChange={this.handleChange}
+                  />
+                  <Form.TextArea
+                      label="Description"
+                      name="description"
+                      type="description"
+                      placeholder="description..."
                       onChange={this.handleChange}
                   />
                   <Form.Button content="Submit"/>
