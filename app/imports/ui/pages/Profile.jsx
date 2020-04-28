@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Container, Item, Header, Loader, Button, Segment, Divider, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserInfo } from '../../api/userinfo/UserInfo';
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
@@ -23,7 +24,7 @@ class Profile extends React.Component {
 
                 <Item.Content>
                   {this.props.currentUser === '' ? (<Button floated='right'><Icon name='lock'/></Button>) : (
-                    <Button floated='right'><Icon name='left chevron'/>Edit</Button>
+                    <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'><Icon name='left chevron'/>Edit</Button>
                   )
                   }
                   <Item.Header as='a'>{this.props.userInfo.firstName} {this.props.userInfo.lastName}</Item.Header>
@@ -77,6 +78,7 @@ Profile.propTypes = {
   userInfo: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
+  currentId: PropTypes.string,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
@@ -88,5 +90,6 @@ export default withTracker(({ match }) => {
     userInfo: UserInfo.findOne({ user: userName }) ? UserInfo.findOne({ user: userName }) : {},
     ready: subscription.ready(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
+    currentId: match.params._id,
   };
 })(Profile);

@@ -16,15 +16,3 @@ if (Books.find().count() === 0) {
   }
 }
 
-if (Profiles.find().count() === 0) {
-  if (Meteor.settings.defaultData) {
-    console.log('Creating default data.');
-    // eslint-disable-next-line no-use-before-define
-    Meteor.settings.defaultProfile.map(data => addProfile(data));
-  }
-}
-
-function addProfile(data) {
-  console.log(`  Adding: ${data.name} (${data.owner})`);
-  Profiles.insert(data);
-}

@@ -12,13 +12,6 @@
   ],
   "defaultBook": [
     {"name":  "Introduction to Real Analysis", "price":  40, "owner":  "john@foo.com", "condition":  "excellent", "description":  "Math 331 textbook", "image":  "https://images-na.ssl-images-amazon.com/images/I/81I2w0QnKfL.jpg"}
-  ],
-
-  "defaultProfile": [
-    {"firstName": "John", "lastName": "Foo", "owner": "john@foo.com", "major": "ICS",
-      "image": "https://pmcdeadline2.files.wordpress.com/2020/04/10565795b.jpg?w=681&h=383&crop=1",
-      "email": "john@foo.com",
-      "description": "Contact me by this"}
   ]
 }
 
