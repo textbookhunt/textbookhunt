@@ -1,10 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Image, Loader, Button, Icon } from 'semantic-ui-react';
+import { Container, Header, Image, Loader, Button, Icon, Segment, Grid, Feed } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Books } from '../../api/book/Book';
+import { Notes } from '../../api/notes/Notes';
+
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
   removeBook(docID) {
@@ -19,32 +21,30 @@ class Listing extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     return (
-        <Container>
-
-          <Image src= {this.props.item.image} size={'large'} centered/>
-
-
-          <Header as="h2" textAlign="center">{this.props.item.name}</Header>
-          <p align="center"><b>Price:</b> ${this.props.item.price}</p>
-          <p align="center"><b>Condition:</b> {this.props.item.condition}</p>
-          <p align="center"><b>Description:</b> {this.props.item.description}</p>
-
-          <p align="center"><Link>Place a request to buy</Link></p>
-
-
-          {(this.props.currentUser === this.props.item.owner) ? (
-              [
-                  <p align="right"><Link to={`/editBook/${this.props.item._id}`}>Edit</Link></p>]
-          ) : ''}
-          {(this.props.currentUser === this.props.item.owner) ? (
-              [<p align="right">
-                <Link to={`/list`}>
-                  <Button icon onClick={() => this.removeBook(this.props.item._id)}><Icon name="trash"/></Button>
-                </Link>
-              </p>]
-          ) : ''}
-
-        </Container>
+        <div>
+          <Container>
+          <Segment>
+              <Header textAlign='center' >{this.props.item.name}</Header>
+              <Grid columns={2}>
+                <Grid.Column width={5}>
+                  <Image size='medium' src={this.props.item.image}/>
+                </Grid.Column>
+                <Grid.Column widht={11}>
+                  <p><b>Price:</b> ${this.props.item.price}</p>
+                  <p><b>Condition:</b> {this.props.item.condition}</p>
+                  <p><b>Description:</b> {this.props.item.description}</p>
+                  <p ><Link>Place a request to buy</Link></p>
+                </Grid.Column>
+              </Grid>
+          </Segment>
+            <Segment>
+              <Feed>
+                <Header>Comments and Requests</Header>
+                {this.props.notes.map((note, index) => <Notes key={index} note={note}/>)}
+              </Feed>
+            </Segment>
+          </Container>
+        </div>
     );
   }
 }
@@ -54,25 +54,26 @@ Listing.propTypes = {
   item: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
+  notes: PropTypes.String,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(({match}) => {
+export default withTracker(({ match }) => {
 
   // Get access to Book documents.
   console.log(match.params._id);
   const bookId = match.params._id;
   console.log(bookId);
   const currentUser = Meteor.user() ? Meteor.user().username : '';
- // const owner = Meteor.user().username;
+  // const owner = Meteor.user().username;
 //  console.log("owner is "+owner);
   const subscription = Meteor.subscribe('AllBook');
+  const subscription2 = Meteor.subscribe('Notes');
   return {
 
-
     item: Books.findOne(bookId),
-
-    ready: subscription.ready(),
+    notes: Notes.find({}).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
     currentUser,
   };
 })(Listing);
