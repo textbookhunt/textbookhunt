@@ -8,7 +8,7 @@ class BookItem extends React.Component {
   render() {
     return (
         <Card>
-          <Image src= {this.props.book.image} size = "large"/>
+          <Image src= {this.props.book.image} height = {400}/>
           <Card.Content>
             <Card.Header><Link to={`/listing/${this.props.book._id}`}>{this.props.book.name}</Link></Card.Header>
             <Card.Meta>

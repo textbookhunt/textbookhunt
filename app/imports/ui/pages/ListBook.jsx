@@ -19,7 +19,7 @@ class ListBook extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Header as="h2" textAlign="center">List Book</Header>
+          <Header as="h2" textAlign="center">Browse for Books</Header>
           <Card.Group>
             {this.props.books.map((book, index) => <BookItem key={index}
                                                      book={book}
