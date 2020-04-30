@@ -24,16 +24,15 @@ class Listing extends React.Component {
         <div>
           <Container>
           <Segment>
-              <Header textAlign='center' >{this.props.item.name}</Header>
+              <Header style={{ fontSize: 25 }} textAlign='center' >{this.props.item.name}</Header>
               <Grid columns={2}>
                 <Grid.Column width={5}>
                   <Image size='medium' src={this.props.item.image}/>
                 </Grid.Column>
                 <Grid.Column widht={11}>
-                  <p><b>Price:</b> ${this.props.item.price}</p>
-                  <p><b>Condition:</b> {this.props.item.condition}</p>
-                  <p><b>Description:</b> {this.props.item.description}</p>
-                  <p ><Link>Place a request to buy</Link></p>
+                  <p className='listing-details'><b>Price:</b> ${this.props.item.price}</p>
+                  <p className='listing-details'><b>Condition:</b> {this.props.item.condition}</p>
+                  <p className='listing-details'><b>Description:</b> {this.props.item.description}</p>
                 </Grid.Column>
               </Grid>
           </Segment>
