@@ -3,9 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Header, Image, Loader, Button, Icon, Segment, Grid, Feed } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Books } from '../../api/book/Book';
-import { Notes } from '../../api/notes/Notes';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
@@ -25,11 +24,20 @@ class Listing extends React.Component {
           <Container>
           <Segment>
               <Header style={{ fontSize: 25 }} textAlign='center' >{this.props.item.name}</Header>
+            { this.props.currentUser === this.props.item.owner ? (
+                <Button as={NavLink} exact to={`/editBook/${this.props.item._id}`} floated='right' color='green'>
+                  Edit
+                </Button>
+            ) : (
+                <Button floated='right' color='red' disabled><Icon name='lock'/>Edit</Button>
+            )
+
+            }
               <Grid columns={2}>
                 <Grid.Column width={5}>
                   <Image size='medium' src={this.props.item.image}/>
                 </Grid.Column>
-                <Grid.Column widht={11}>
+                <Grid.Column width={11}>
                   <p className='listing-details'><b>Price:</b> ${this.props.item.price}</p>
                   <p className='listing-details'><b>Condition:</b> {this.props.item.condition}</p>
                   <p className='listing-details'><b>Description:</b> {this.props.item.description}</p>
@@ -39,7 +47,6 @@ class Listing extends React.Component {
             <Segment>
               <Feed>
                 <Header>Comments and Requests</Header>
-                {this.props.notes.map((note, index) => <Notes key={index} note={note}/>)}
               </Feed>
             </Segment>
           </Container>
@@ -53,7 +60,6 @@ Listing.propTypes = {
   item: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
-  notes: PropTypes.String,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
@@ -67,12 +73,10 @@ export default withTracker(({ match }) => {
   // const owner = Meteor.user().username;
 //  console.log("owner is "+owner);
   const subscription = Meteor.subscribe('AllBook');
-  const subscription2 = Meteor.subscribe('Notes');
   return {
 
     item: Books.findOne(bookId),
-    notes: Notes.find({}).fetch(),
-    ready: subscription.ready() && subscription2.ready(),
+    ready: subscription.ready(),
     currentUser,
   };
 })(Listing);
