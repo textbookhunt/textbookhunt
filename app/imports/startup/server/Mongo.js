@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Books } from '../../api/book/Book';
-import { UserInfo } from '../../api/userinfo/UserInfo';
+
 
 /** Initialize the database with a default data document. */
-function addBook(data) {
+function addData(data) {
   console.log(`  Adding: ${data.name} (${data.owner})`);
   Books.insert(data);
 }
@@ -12,9 +12,6 @@ function addBook(data) {
 if (Books.find().count() === 0) {
   if (Meteor.settings.defaultData) {
     console.log('Creating default data.');
-    Meteor.settings.defaultBook.map(data => addBook(data));
+    Meteor.settings.defaultBook.map(data => addData(data));
   }
 }
-
-
-
