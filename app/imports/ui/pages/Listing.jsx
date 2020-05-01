@@ -25,12 +25,17 @@ class Listing extends React.Component {
           <Segment>
               <Header style={{ fontSize: 25 }} textAlign='center' >{this.props.item.name}</Header>
             { this.props.currentUser === this.props.item.owner ? (
+                <Button as={NavLink} exact to='/list' floated='right'
+                        onClick={() => this.removeBook(this.props.item._id)} color='red'>
+                  Delete
+                </Button>
+            ) : ''
+            }
+            { this.props.currentUser === this.props.item.owner ? (
                 <Button as={NavLink} exact to={`/editBook/${this.props.item._id}`} floated='right' color='green'>
                   Edit
                 </Button>
-            ) : (
-                <Button floated='right' color='red' disabled><Icon name='lock'/>Edit</Button>
-            )
+            ) : ''
 
             }
               <Grid columns={2}>
