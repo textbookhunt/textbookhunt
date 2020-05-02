@@ -1,10 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Loader, Card } from 'semantic-ui-react';
+import { Container, Card, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
+import { Notes } from '../../api/notes/Notes';
 import BookItemAdmin from '../components/BookItemAdmin';
+
 /** Renders a table containing all of the Book documents. Use <BookItemAdmin> to render each row. */
 class ListBookAdmin extends React.Component {
 
@@ -17,9 +19,11 @@ class ListBookAdmin extends React.Component {
   renderPage() {
     return (
         <Container>
-          <Header as="h2" textAlign="center">List Book</Header>
+          <Header as="h2" textAlign="center">Browse for Books</Header>
           <Card.Group>
-            {this.props.books.map((book) => <BookItemAdmin key={book._id} book={book} />)}
+            {this.props.books.map((book, index) => <BookItemAdmin key={index}
+                                                             book={book}
+                                                             notes={this.props.notes.filter(note => (note.contactId === book._id))}/>)}
           </Card.Group>
         </Container>
     );
@@ -29,15 +33,18 @@ class ListBookAdmin extends React.Component {
 /** Require an array of Book documents in the props. */
 ListBookAdmin.propTypes = {
   books: PropTypes.array.isRequired,
+  notes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Book documents.
-  const subscription = Meteor.subscribe('Book');
+  const subscription = Meteor.subscribe('AllBook');
+  const subscription2 = Meteor.subscribe('Notes');
   return {
     books: Books.find({}).fetch(),
-    ready: subscription.ready(),
+    notes: Notes.find({}).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
   };
 })(ListBookAdmin);
