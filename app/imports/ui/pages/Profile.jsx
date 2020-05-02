@@ -6,11 +6,12 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserInfo } from '../../api/userinfo/UserInfo';
 import { Books } from '../../api/book/Book';
+
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Profile extends React.Component {
-  removeProfile(ID) {
-    UserInfo.remove(ID);
-    Meteor.users.remove(this.params.currendId);
+  removeProfile() {
+    UserInfo.remove(this.props.userInfo._id);
+    Meteor.users.remove(this.props.currentId);
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -29,13 +30,18 @@ class Profile extends React.Component {
 
                 <Item.Content>
                   {this.props.currentUser === this.props.userInfo.user ? (
-                          [
-
-                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'>
-                    <Icon name='left chevron'/>
-                    Edit
-                  </Button>
-                          ]) : ''
+                      [
+                        <Button onClick={
+                          () => this.removeProfile(this.props.userInfo._id)}
+                                key={0} as={NavLink} exact to='/signout' floated='right' color='red'>
+                          <Icon name='trash'/>
+                          Delete
+                        </Button>,
+                        <Button key={1} as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'>
+                          <Icon name='left chevron'/>
+                          Edit
+                        </Button>,
+                      ]) : ''
                   }
                   <Item.Header as='a'>{this.props.userInfo.firstName} {this.props.userInfo.lastName}</Item.Header>
                   <Item.Meta>{this.props.userInfo.user}</Item.Meta>
