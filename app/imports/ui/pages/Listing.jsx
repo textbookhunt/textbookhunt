@@ -1,15 +1,32 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Image, Loader, Button, Icon, Segment, Grid, Feed } from 'semantic-ui-react';
+import { Container, Header, Image, Loader, Button, Icon, Segment, Grid, Feed, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { AutoForm, ErrorsField, HiddenField, SubmitField, TextField } from 'uniforms-semantic';
+import swal from 'sweetalert';
 import { Books } from '../../api/book/Book';
+import { Notes, NotesSchema } from '../../api/notes/Notes';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
   removeBook(docID) {
     Books.remove(docID);
+  }
+
+  /** On submit, insert the data. */
+  submit(data, formRef) {
+    const { note, owner, contactId, createdAt } = data;
+    Notes.insert({ note, owner, contactId, createdAt },
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Success', 'Item added successfully', 'success');
+            formRef.reset();
+          }
+        });
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -19,6 +36,7 @@ class Listing extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
+    let fRef = null;
     return (
         <div>
           <Container>
@@ -51,7 +69,24 @@ class Listing extends React.Component {
           </Segment>
             <Segment>
               <Feed>
-                <Header>Comments and Requests</Header>
+                <Card.Group center>
+                  <Card>
+                    <Card.Header Add Comments />
+                    <AutoForm ref={ref => { fRef = ref; }} schema={NotesSchema} onSubmit={data => this.submit(data, fRef)} ><Segment>
+                      <TextField label="Write a Comment" name='note'/>
+                      <TextField name='owner' value={this.props.owner}/>
+                      <TextField name='contactId' value={this.props.contactId}/>
+                      <SubmitField value='Submit'/>
+                      <ErrorsField/>
+                      <HiddenField name='createdAt' value={new Date()}/>
+                    </Segment>
+                    </AutoForm>
+                  </Card>
+                  <Card>
+                    <Card.Header> Comments </Card.Header>
+                    <Card.Description> {this.props.notes.note}</Card.Description>
+                  </Card>
+                </Card.Group>
               </Feed>
             </Segment>
           </Container>
@@ -62,7 +97,10 @@ class Listing extends React.Component {
 
 /** Require an array of Book documents in the props. */
 Listing.propTypes = {
+  owner: PropTypes.string.isRequired,
+  contactId: PropTypes.string.isRequired,
   item: PropTypes.object,
+  notes: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
 };
@@ -78,10 +116,11 @@ export default withTracker(({ match }) => {
   // const owner = Meteor.user().username;
 //  console.log("owner is "+owner);
   const subscription = Meteor.subscribe('AllBook');
+  const subscription2 = Meteor.subscribe('Notes');
   return {
-
     item: Books.findOne(bookId),
-    ready: subscription.ready(),
+    notes: Notes.find({}).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
     currentUser,
   };
 })(Listing);
