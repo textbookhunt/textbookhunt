@@ -5,8 +5,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserInfo } from '../../api/userinfo/UserInfo';
+import { Books } from '../../api/book/Book';
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Profile extends React.Component {
+  removeProfile(ID) {
+    UserInfo.remove(ID);
+    Meteor.users.remove(this.params.currendId);
+  }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -23,9 +28,14 @@ class Profile extends React.Component {
                 <Item.Image size='medium' src='/images/default_image.png'/>
 
                 <Item.Content>
-                  {this.props.currentUser === '' ? (<Button floated='right'><Icon name='lock'/></Button>) : (
-                    <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'><Icon name='left chevron'/>Edit</Button>
-                  )
+                  {this.props.currentUser === this.props.userInfo.user ? (
+                          [
+
+                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'>
+                    <Icon name='left chevron'/>
+                    Edit
+                  </Button>
+                          ]) : ''
                   }
                   <Item.Header as='a'>{this.props.userInfo.firstName} {this.props.userInfo.lastName}</Item.Header>
                   <Item.Meta>{this.props.userInfo.user}</Item.Meta>
