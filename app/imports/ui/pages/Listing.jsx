@@ -5,6 +5,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Books } from '../../api/book/Book';
+import { Notes } from '../../api/notes/Notes';
+import Note from '/imports/ui/components/Note';
+import AddNotes from '/imports/ui/components/AddNotes'
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
@@ -52,6 +55,8 @@ class Listing extends React.Component {
             <Segment>
               <Feed>
                 <Header>Comments and Requests</Header>
+                <AddNotes owner={this.props.currentUser} book={this.props.item._id}/>
+                {this.props.notes.map((note, index) => <Note key={index} note={note} currentUser={this.props.currentUser}/>)}
               </Feed>
             </Segment>
           </Container>
@@ -65,23 +70,21 @@ Listing.propTypes = {
   item: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
+  notes: PropTypes.array.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({ match }) => {
-
   // Get access to Book documents.
-  console.log(match.params._id);
   const bookId = match.params._id;
-  console.log(bookId);
-  const currentUser = Meteor.user() ? Meteor.user().username : '';
   // const owner = Meteor.user().username;
 //  console.log("owner is "+owner);
   const subscription = Meteor.subscribe('AllBook');
+  const subscription2 = Meteor.subscribe('Notes');
   return {
-
     item: Books.findOne(bookId),
-    ready: subscription.ready(),
-    currentUser,
+    notes: Notes.find({ book: bookId }).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
   };
 })(Listing);
