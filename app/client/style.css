@@ -8,13 +8,14 @@
 }
 
 .landing-bg-text {
+  display: inline;
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
   font-size: 70px;
   color: white;
   font-weight: bold;
   position: absolute;
-  top: 25%;
+  top: 275px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
