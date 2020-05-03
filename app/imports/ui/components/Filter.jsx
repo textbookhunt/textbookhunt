@@ -1,53 +1,63 @@
 import React from 'react';
-import { Menu, Dropdown, Header, Sticky } from 'semantic-ui-react';
+import { Menu, Dropdown, Header, Sticky, Button, Segment } from 'semantic-ui-react';
 import { NavLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ListBook from '../pages/ListBook';
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
 
 export class Filter extends React.Component {
-
+  state = { isFilter: false, major: 'All Majors' };
   major;
   constructor(props){
     super(props);
-    this.major='empty';
+    this.state = { isFilter: false, major: 'All Majors' };
+    this.major = 'All Major';
   }
   select(major){
+    //this.setState({isFilter: true, major : major});
     this.major = major;
-    console.log(this.major);
+    this.props.sendMajor(this.major);
+    //console.log("this is "+ this.major);
+
 
   }
 
-  getmajor(){
-    console.log("new"+this.major);
-    return this.major;
-  }
+
   renderMajor(){
     const dataArray = this.props.majors;
+
     return dataArray.map((major,i) => <Dropdown.Item key={i} onClick={() => this.select(major)} >{major}</Dropdown.Item>)
   }
   render() {
 
     const menuStyle = { marginBottom: '10px' };
     return (
-        <Sticky>
+        <div>
+          <Header>Major: </Header>
+          <p>{ this.major }</p>
 
           <div>
-
-            <Dropdown text="major" clearable >
+            <Dropdown text="please pick a major" clearable >
             <Dropdown.Menu>
             {this.renderMajor()}
             </Dropdown.Menu>
             </Dropdown>
           </div>
 
-        </Sticky>
+        </div>
     );
   }
 }
 Filter.propTypes = {
   majors: PropTypes.array,
-  major: PropTypes.string,
+
 
 };
 export default withRouter(Filter);
