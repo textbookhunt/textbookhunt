@@ -26,9 +26,6 @@ class BookItem extends React.Component {
             </a>
           </Card.Content>
           <Card.Content extra>
-            <Feed>
-              {this.props.notes.map((note, index) => <Notes key={index} note={note}/>)}
-            </Feed>
           </Card.Content>
         </Card>
     );
