@@ -9,7 +9,7 @@ class BookNotes extends React.Component {
     return (
         <Feed.Event >
           <Feed.Content>
-            <Feed.Date content={this.props.notes.createdAt.toLocaleDateString('en-US')} />
+            <Feed.Date content={this.props.notes.date.toLocaleDateString('en-US')} />
             <Feed.Summary>
               {this.props.notes.note}
             </Feed.Summary>
