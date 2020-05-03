@@ -55,7 +55,9 @@ class Listing extends React.Component {
             <Segment>
               <Feed>
                 <Header>Comments and Requests</Header>
-                <AddNotes owner={this.props.currentUser} book={this.props.item._id}/>
+                {this.props.currentUser === '' ? '' : (
+                  <AddNotes owner={this.props.currentUser} book={this.props.item._id} ownerId={this.props.currentId}/>)
+                }
                 {this.props.notes.map((note, index) => <Note key={index} note={note} currentUser={this.props.currentUser}/>)}
               </Feed>
             </Segment>
@@ -71,6 +73,7 @@ Listing.propTypes = {
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
   notes: PropTypes.array.isRequired,
+  currentId: PropTypes.string,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
@@ -86,5 +89,6 @@ export default withTracker(({ match }) => {
     notes: Notes.find({ book: bookId }).fetch(),
     ready: subscription.ready() && subscription2.ready(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
+    currentId: Meteor.user() ? Meteor.userId() : '',
   };
 })(Listing);

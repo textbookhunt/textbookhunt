@@ -10,6 +10,7 @@ const NoteSchema = new SimpleSchema({
   note: String,
   book: String,
   owner: String,
+  ownerId: String,
   date: Date,
 }, { tracker: Tracker });
 

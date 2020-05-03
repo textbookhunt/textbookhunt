@@ -20,7 +20,7 @@ class Profile extends React.Component {
           <Segment>
             <Item.Group>
               <Item>
-                <Item.Image size='medium' src='/images/default_image.png'/>
+                <Item.Image size='medium' src={this.props.userInfo.image}/>
 
                 <Item.Content>
                   {this.props.currentUser === '' ? (<Button floated='right'><Icon name='lock'/></Button>) : (

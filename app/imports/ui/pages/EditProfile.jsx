@@ -4,7 +4,6 @@ import swal from 'sweetalert';
 import {
   AutoForm,
   ErrorsField,
-  HiddenField,
   LongTextField,
   SubmitField,
   TextField,
@@ -20,8 +19,8 @@ import { UserInfo, UserInfoSchema } from '../../api/userinfo/UserInfo';
 class EditProfile extends React.Component {
   /** On successful submit, insert the data. */
   submit(data) {
-    const { user, firstName, lastName, major, description, _id } = data;
-    UserInfo.update(_id, { $set: { user, firstName, lastName, major, description } }, (error) => (error ?
+    const { user, firstName, lastName, image, major, description, _id } = data;
+    UserInfo.update(_id, { $set: { user, firstName, lastName, image, major, description } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'Item updated successfully', 'success')));
   }
@@ -42,6 +41,7 @@ class EditProfile extends React.Component {
                 <TextField className='disabled field' name='user'/>
                 <TextField name = 'firstName'/>
                 <TextField name = 'lastName'/>
+                <TextField name='image'/>
                 <TextField name = 'major'/>
                 <LongTextField name = 'description'/>
                 <SubmitField value='Submit'/>

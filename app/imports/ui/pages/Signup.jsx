@@ -13,7 +13,7 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', firstName: '', lastName: '', major: '',
+    this.state = { email: '', password: '', firstName: '', lastName: '', image: '', major: '',
       description: '', error: '', redirectToReferer: false };
   }
 
@@ -24,7 +24,7 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit = () => {
-    const { email, password, firstName, lastName, major, description } = this.state;
+    const { email, password, firstName, lastName, image, major, description } = this.state;
     const user = email;
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
@@ -35,7 +35,7 @@ class Signup extends React.Component {
 
       }
     });
-    UserInfo.insert({ user, firstName, lastName, major, description });
+    UserInfo.insert({ user, firstName, lastName, image, major, description });
   }
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
@@ -84,6 +84,12 @@ class Signup extends React.Component {
                       name="lastName"
                       type="lastName"
                       placeholder="Last Name"
+                      onChange={this.handleChange}
+                  />
+                  <Form.Input
+                      label="Profile Picture Link"
+                      name="image"
+                      placeholder="/images/default_image.png"
                       onChange={this.handleChange}
                   />
                   <Form.Input

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Feed } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Notes } from '../../api/notes/Notes';
 
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
@@ -15,8 +15,8 @@ class Note extends React.Component {
         <Feed.Event style={{ padding: '2em' }}>
           <Feed.Content>
             <Feed.Date content={this.props.note.date.toLocaleDateString('en-US')} />
-            <Feed.Summary>
-              { this.props.note.owner } wants to buy this!
+            <Feed.Summary as={NavLink} exact to={`/Profile/${this.props.note.ownerId}`}>
+              <a>{ this.props.note.owner }</a> wants to buy this!
             </Feed.Summary>
             <Feed.Extra>
               {this.props.note.note}
