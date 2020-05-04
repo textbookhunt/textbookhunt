@@ -36,7 +36,7 @@ class EditProfile extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Edit Profile</Header>
-            <AutoForm schema={UserInfoSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
+            <AutoForm schema={UserInfoSchema} onSubmit={data => { if (window.confirm('Are you sure you wish to save your changes?')) this.submit(data); } } model={this.props.doc}>
               <Segment>
                 <TextField className='disabled field' name='user'/>
                 <TextField name = 'firstName'/>

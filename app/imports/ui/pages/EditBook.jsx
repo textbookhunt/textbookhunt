@@ -44,7 +44,7 @@ class EditBook extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Edit Book Information</Header>
-            <AutoForm schema={BookSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
+            <AutoForm schema={BookSchema} onSubmit={data => { if (window.confirm('Are you sure you wish to save your changes?')) this.submit(data); } } model={this.props.doc}>
               <Segment>
                 <TextField name='name'/>
                 <TextField name = 'major'/>

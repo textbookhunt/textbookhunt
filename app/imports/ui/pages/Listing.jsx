@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Image, Loader, Button, Icon, Segment, Grid, Feed } from 'semantic-ui-react';
+import { Container, Header, Image, Loader, Button, Segment, Grid, Feed } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
@@ -29,7 +29,7 @@ class Listing extends React.Component {
               <Header style={{ fontSize: 25 }} textAlign='center' >{this.props.item.name}</Header>
             { this.props.currentUser === this.props.item.owner ? (
                 <Button as={NavLink} exact to='/list' floated='right'
-                        onClick={() => this.removeBook(this.props.item._id)} color='red'>
+                        onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.removeBook(this.props.item._id); } } color='red'>
                   Delete
                 </Button>
             ) : ''

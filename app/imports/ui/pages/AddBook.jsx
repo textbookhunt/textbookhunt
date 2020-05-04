@@ -31,7 +31,7 @@ class AddBook extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Sell Textbook</Header>
-            <AutoForm ref={ref => { fRef = ref; }} schema={BookSchema} onSubmit={data => this.submit(data, fRef)} >
+            <AutoForm ref={ref => { fRef = ref; }} schema={BookSchema} onSubmit={data => { if (window.confirm('Are you sure you wish to sell this textbook?')) this.submit(data, fRef); } } >
               <Segment>
                 <TextField className='disabled field' value={`${currentUser}`} name='owner'/>
                 <TextField name='name'/>
