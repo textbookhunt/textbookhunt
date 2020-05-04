@@ -40,7 +40,7 @@ class Signup extends React.Component {
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/add' } };
+    const { from } = this.props.location.state || { from: { pathname: '/list' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
      return <Redirect to={from}/>;
@@ -72,34 +72,34 @@ class Signup extends React.Component {
                       type="password"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
                       label="First Name"
                       name="firstName"
                       type="firstName"
                       placeholder="First Name"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
                       label="Last Name"
                       name="lastName"
                       type="lastName"
                       placeholder="Last Name"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
                       label="Profile Picture Link"
                       name="image"
                       placeholder="/images/default_image.png"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
                       label="Major"
                       name="major"
                       type="major"
                       placeholder="Major"
                       onChange={this.handleChange}
                   />
-                  <Form.TextArea
+                  <Form.TextArea required
                       label="Description"
                       name="description"
                       type="description"
