@@ -63,14 +63,12 @@ class ListBook extends React.Component {
             <Grid.Column width={12}>
 
 
-            { this.state.major === 'All Majors' ? (
-                <Card.Group> {this.props.books.map((book, index) => <BookItem key={index}
-                                                                              book={book}
-                                                                              notes={this.props.notes.filter(note => (note.contactId === book._id))}/>)}</Card.Group>
-            ) : <Card.Group> {this.filterbook.map((book, index) => <BookItem key={index}
-                                                                              book={book}
-                                                                              notes={this.props.notes.filter(note => (note.contactId === book._id))}/>)}</Card.Group>
-            }
+              { this.state.major === 'All Majors' ? (
+                  <Card.Group> {this.props.books.map((book, index) => <BookItem key={index}
+                                                                                book={book}/>)}</Card.Group>
+              ) : <Card.Group> {this.filterbook.map((book, index) => <BookItem key={index}
+                                                                               book={book}/>)}</Card.Group>
+              }
 
 
             </Grid.Column>
@@ -85,7 +83,6 @@ class ListBook extends React.Component {
 /** Require an array of Book documents in the props. */
 ListBook.propTypes = {
   books: PropTypes.array.isRequired,
-
   majors: PropTypes.array.isRequired,
   notes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
