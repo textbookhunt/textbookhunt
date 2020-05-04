@@ -12,6 +12,7 @@ const BookSchema = new SimpleSchema({
   description: String,
   image: String,
   owner: String,
+  ownerId: String,
   major: String,
   condition: {
     type: String,
