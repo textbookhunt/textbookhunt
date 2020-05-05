@@ -1,12 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Item, Header, Loader, Button, Segment, Divider, Icon, Card, Image } from 'semantic-ui-react';
+import { Container, Item, Header, Loader, Button, Segment, Divider, Icon, Card, Image, Feed } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserInfo } from '../../api/userinfo/UserInfo';
 import { Books } from '../../api/book/Book';
 import ProfileBook from '../components/ProfileBook';
+import ProfileList from '../components/ProfileList';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Profile extends React.Component {
@@ -41,6 +42,10 @@ class Profile extends React.Component {
             </Item.Group>
           </Segment>
           <Header as="h2" textAlign="center">Book Sold By {this.props.userInfo.firstName}</Header>
+          <Card.Content>
+            <Feed>
+            </Feed>
+          </Card.Content>
         </Container>
     );
   }

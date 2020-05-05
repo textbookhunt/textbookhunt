@@ -1,38 +1,49 @@
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Loader, Card, Feed } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { UserInfo } from '../../api/userinfo/UserInfo';
+import { Books } from '../../api/book/Book';
+import ProfileBook from '../components/ProfileBook';
 
-/** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
+/** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class ProfileList extends React.Component {
+
+  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  /** Render the page once subscriptions have been received. */
+  renderPage() {
     return (
-        <Card>
-          <Image src= {this.props.profile.image} />
-          <Card.Content>
-            <Card.Header>{this.props.profile.firstName} {this.props.profile.lastName}</Card.Header>
-            <Card.Meta>
-              {this.props.profile.major} <br/>
-              {this.props.profile.email}
-            </Card.Meta>
-            <Card.Description>
-              {this.props.profile.description}
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Link to={`/editProfile/${this.props.profile._id}`}>Edit Profile</Link>
-            </a>
-          </Card.Content>
-        </Card>
+        <Card.Content>
+          <Feed>
+            {this.props.books.map((book, index) => <ProfileBook key={index} book={book}/>)}
+          </Feed>
+        </Card.Content>
     );
   }
 }
 
-/** Require a document to be passed to this component. */
+/** Require an array of Book documents in the props. */
 ProfileList.propTypes = {
-  profile: PropTypes.object.isRequired,
+  books: PropTypes.object.isRequired,
+  ready: PropTypes.bool.isRequired,
+  currentUser: PropTypes.string,
+  currentId: PropTypes.string,
 };
 
-/** Wrap this component in withRouter since we use the <Link> React Router element. */
-export default withRouter(ProfileList);
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(({ match }) => {
+  const userName = userAccount ? userAccount.username : '';
+  const subscription = Meteor.subscribe('AllBook');
+  return {
+    userInfo: UserInfo.findOne({ user: userName }) ? UserInfo.findOne({ user: userName }) : {},
+    books: Books.find({}).fetch(),
+    ready: subscription.ready(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
+    currentId: match.params._id,
+  };
+})(ProfileList);
