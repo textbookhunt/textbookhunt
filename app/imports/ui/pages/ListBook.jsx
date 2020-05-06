@@ -4,11 +4,9 @@ import { Container, Card, Header, Loader, Grid, Button } from 'semantic-ui-react
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
-import { Notes } from '../../api/notes/Notes'
 import BookItem from '../components/BookItem';
-//import Filter from '../components/Filter';
 import { Filter } from '../components/Filter';
-import { NavLink } from 'react-router-dom';
+import Search from '../components/Search';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class ListBook extends React.Component {
@@ -56,6 +54,7 @@ class ListBook extends React.Component {
           <Header as="h2" textAlign="center">Browse for Books</Header>
 
         </Container>
+
           <Grid>
             <div style={{marginLeft: "20px"}}>
           <Header>filter: </Header>
@@ -91,7 +90,6 @@ class ListBook extends React.Component {
 ListBook.propTypes = {
   books: PropTypes.array.isRequired,
   majors: PropTypes.array.isRequired,
-  notes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 
 
@@ -102,7 +100,7 @@ export default withTracker(() => {
   // Get access to Book documents.
   const subscription = Meteor.subscribe('AllBook');
 
-  const subscription2 = Meteor.subscribe('Notes');
+
 
   //console.log("major is "+ListBook.state.major);
 
@@ -110,9 +108,8 @@ export default withTracker(() => {
   return {
 
     books: Books.find({}).fetch(),
-    notes: Notes.find({}).fetch(),
     majors: Books.find({}).fetch(),
-    ready: subscription.ready() && subscription2.ready(),
+    ready: subscription.ready(),
 
   };
 })(ListBook);

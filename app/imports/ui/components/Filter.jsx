@@ -1,16 +1,10 @@
 import React from 'react';
-import { Menu, Dropdown, Header, Sticky, Button, Segment } from 'semantic-ui-react';
-import { NavLink, withRouter } from 'react-router-dom';
+import {  Dropdown, Header} from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ListBook from '../pages/ListBook';
 
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
+
+
 
 export class Filter extends React.Component {
   state = { isFilter: false, major: 'All Majors' };
@@ -37,7 +31,7 @@ export class Filter extends React.Component {
   }
   render() {
 
-    const menuStyle = { marginBottom: '10px' };
+
     return (
         <div>
           <Header>Major: </Header>

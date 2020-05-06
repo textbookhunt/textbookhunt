@@ -16,7 +16,7 @@ class Note extends React.Component {
           <Feed.Content>
             <Feed.Date content={this.props.note.date.toLocaleDateString('en-US')} />
             <Feed.Summary as={NavLink} exact to={`/Profile/${this.props.note.ownerId}`}>
-              <a>{ this.props.note.owner }</a> wants to buy this!
+              { this.props.note.owner } wants to buy this!
             </Feed.Summary>
             <Feed.Extra>
               {this.props.note.note}
