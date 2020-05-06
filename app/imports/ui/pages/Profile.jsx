@@ -11,7 +11,6 @@ import ProfileList from '../components/ProfileList';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Profile extends React.Component {
-
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
@@ -41,11 +40,6 @@ class Profile extends React.Component {
               </Item>
             </Item.Group>
           </Segment>
-          <Header as="h2" textAlign="center">Book Sold By {this.props.userInfo.firstName}</Header>
-          <Card.Content>
-            <Feed>
-            </Feed>
-          </Card.Content>
         </Container>
     );
   }

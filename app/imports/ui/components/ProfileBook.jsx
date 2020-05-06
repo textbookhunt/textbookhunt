@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 class ProfileBook extends React.Component {
   render() {
     return (
+
         <Card>
           <Image src= {this.props.book.image} height = {400}/>
           <Card.Content>
@@ -14,6 +15,7 @@ class ProfileBook extends React.Component {
             {this.props.book.name}
           </Card.Content>
         </Card>
+
     );
   }
 }

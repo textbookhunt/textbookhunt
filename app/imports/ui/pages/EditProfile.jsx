@@ -39,7 +39,7 @@ class EditProfile extends React.Component {
             <Header as="h2" textAlign="center">Edit Profile</Header>
             <AutoForm schema={UserInfoSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
               <Segment>
-                <TextField className='disabled field' name='user'/>
+                <TextField name='user'/>
                 <TextField name = 'firstName'/>
                 <TextField name = 'lastName'/>
                 <TextField name = 'major'/>
