@@ -21,14 +21,11 @@ class BookItem extends React.Component {
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <a>
+            <p>
               <Link to={`/listing/${this.props.book._id}`}>view more this Book Information</Link>
-            </a>
+            </p>
           </Card.Content>
           <Card.Content extra>
-            <Feed>
-              {this.props.notes.map((note, index) => <Notes key={index} note={note}/>)}
-            </Feed>
           </Card.Content>
         </Card>
     );

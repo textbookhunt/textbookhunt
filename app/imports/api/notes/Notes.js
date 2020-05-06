@@ -7,9 +7,10 @@ const Notes = new Mongo.Collection('Notes');
 
 /** Define a schema to specify the structure of each document in the collection. */
 const NoteSchema = new SimpleSchema({
- note: String,
-  contactId: String,
+  note: String,
+  book: String,
   owner: String,
+  ownerId: String,
   date: Date,
 }, { tracker: Tracker });
 

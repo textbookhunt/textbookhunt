@@ -7,7 +7,7 @@ class Landing extends React.Component {
     return (
         <div>
           <div className='landing-header-background'/>
-          <div className='landing-bg-text'>Textbook Hunt</div>
+          <div className='landing-bg-text'><p>Textbook Hunt</p></div>
           <div className='black-landing-item'>
             <Divider horizontal style={{ padding: 50, margin: 0 }}>
               <Header as='h1' inverted>

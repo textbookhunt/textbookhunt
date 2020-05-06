@@ -4,7 +4,6 @@ import swal from 'sweetalert';
 import {
   AutoForm,
   ErrorsField,
-  HiddenField,
   LongTextField,
   SubmitField,
   TextField,
@@ -20,8 +19,8 @@ import { UserInfo, UserInfoSchema } from '../../api/userinfo/UserInfo';
 class EditProfile extends React.Component {
   /** On successful submit, insert the data. */
   submit(data) {
-    const { user, firstName, lastName, major, description, _id } = data;
-    UserInfo.update(_id, { $set: { user, firstName, lastName, major, description } }, (error) => (error ?
+    const { user, firstName, lastName, image, major, description, _id } = data;
+    UserInfo.update(_id, { $set: { user, firstName, lastName, image, major, description } }, (error) => (error ?
       swal('Error', error.message, 'error') :
       swal('Success', 'Item updated successfully', 'success')));
   }
@@ -37,11 +36,12 @@ class EditProfile extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Edit Profile</Header>
-            <AutoForm schema={UserInfoSchema} onSubmit={data => this.submit(data)} model={this.props.doc}>
+            <AutoForm schema={UserInfoSchema} onSubmit={data => { if (window.confirm('Are you sure you wish to save your changes?')) this.submit(data); } } model={this.props.doc}>
               <Segment>
                 <TextField name='user'/>
                 <TextField name = 'firstName'/>
                 <TextField name = 'lastName'/>
+                <TextField name='image'/>
                 <TextField name = 'major'/>
                 <LongTextField name = 'description'/>
                 <SubmitField value='Submit'/>

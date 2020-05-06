@@ -13,7 +13,7 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', firstName: '', lastName: '', major: '',
+    this.state = { email: '', password: '', firstName: '', lastName: '', image: '', major: '',
       description: '', error: '', redirectToReferer: false };
   }
 
@@ -24,7 +24,7 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit = () => {
-    const { email, password, firstName, lastName, major, description } = this.state;
+    const { email, password, firstName, lastName, image, major, description } = this.state;
     const user = email;
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
@@ -35,12 +35,12 @@ class Signup extends React.Component {
 
       }
     });
-    UserInfo.insert({ user, firstName, lastName, major, description });
+    UserInfo.insert({ user, firstName, lastName, image, major, description });
   }
 
   /** Display the signup form. Redirect to add page after successful registration and login. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/add' } };
+    const { from } = this.props.location.state || { from: { pathname: '/list' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
      return <Redirect to={from}/>;
@@ -72,28 +72,34 @@ class Signup extends React.Component {
                       type="password"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
                       label="First Name"
                       name="firstName"
                       type="firstName"
                       placeholder="First Name"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
                       label="Last Name"
                       name="lastName"
                       type="lastName"
                       placeholder="Last Name"
                       onChange={this.handleChange}
                   />
-                  <Form.Input
+                  <Form.Input required
+                      label="Profile Picture Link"
+                      name="image"
+                      placeholder="/images/default_image.png"
+                      onChange={this.handleChange}
+                  />
+                  <Form.Input required
                       label="Major"
                       name="major"
                       type="major"
                       placeholder="Major"
                       onChange={this.handleChange}
                   />
-                  <Form.TextArea
+                  <Form.TextArea required
                       label="Description"
                       name="description"
                       type="description"

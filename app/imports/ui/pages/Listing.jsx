@@ -1,10 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Header, Image, Loader, Button, Icon, Segment, Grid, Feed } from 'semantic-ui-react';
+import { Container, Header, Image, Loader, Button, Segment, Grid, Feed } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Books } from '../../api/book/Book';
+import { Notes } from '../../api/notes/Notes';
+import Note from '/imports/ui/components/Note';
+import AddNotes from '/imports/ui/components/AddNotes'
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
@@ -26,7 +29,7 @@ class Listing extends React.Component {
               <Header style={{ fontSize: 25 }} textAlign='center' >{this.props.item.name}</Header>
             { this.props.currentUser === this.props.item.owner ? (
                 <Button as={NavLink} exact to='/list' floated='right'
-                        onClick={() => this.removeBook(this.props.item._id)} color='red'>
+                        onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.removeBook(this.props.item._id); } } color='red'>
                   Delete
                 </Button>
             ) : ''
@@ -43,6 +46,7 @@ class Listing extends React.Component {
                   <Image size='medium' src={this.props.item.image}/>
                 </Grid.Column>
                 <Grid.Column width={11}>
+                  <Header as={NavLink} exact to={`/Profile/${this.props.item.ownerId}`}>Seller: <a>{this.props.item.owner}</a></Header>
                   <p className='listing-details'><b>Price:</b> ${this.props.item.price}</p>
                   <p className='listing-details'><b>Condition:</b> {this.props.item.condition}</p>
                   <p className='listing-details'><b>Description:</b> {this.props.item.description}</p>
@@ -52,6 +56,10 @@ class Listing extends React.Component {
             <Segment>
               <Feed>
                 <Header>Comments and Requests</Header>
+                {this.props.currentUser === '' ? '' : (
+                  <AddNotes owner={this.props.currentUser} book={this.props.item._id} ownerId={this.props.currentId}/>)
+                }
+                {this.props.notes.map((note, index) => <Note key={index} note={note} currentUser={this.props.currentUser}/>)}
               </Feed>
             </Segment>
           </Container>
@@ -65,23 +73,23 @@ Listing.propTypes = {
   item: PropTypes.object,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
+  notes: PropTypes.array.isRequired,
+  currentId: PropTypes.string,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({ match }) => {
-
   // Get access to Book documents.
-  console.log(match.params._id);
   const bookId = match.params._id;
-  console.log(bookId);
-  const currentUser = Meteor.user() ? Meteor.user().username : '';
   // const owner = Meteor.user().username;
 //  console.log("owner is "+owner);
   const subscription = Meteor.subscribe('AllBook');
+  const subscription2 = Meteor.subscribe('Notes');
   return {
-
     item: Books.findOne(bookId),
-    ready: subscription.ready(),
-    currentUser,
+    notes: Notes.find({ book: bookId }).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
+    currentUser: Meteor.user() ? Meteor.user().username : '',
+    currentId: Meteor.user() ? Meteor.userId() : '',
   };
 })(Listing);

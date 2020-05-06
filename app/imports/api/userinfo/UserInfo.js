@@ -10,6 +10,7 @@ const UserInfoSchema = new SimpleSchema({
   user: String,
   firstName: String,
   lastName: String,
+  image: String,
   major: String,
   description: String,
 }, { tracker: Tracker });
