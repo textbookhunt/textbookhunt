@@ -14,11 +14,13 @@ import { NavLink } from 'react-router-dom';
 class ListBook extends React.Component {
     filterbook;
     major;
+    search;
   constructor(props) {
     super(props);
     this.state = {major: 'All Majors'}
     this.filterbook = {};
     this.major = 'All Major';
+    this.search ='';
   }
   getMajor = (major) => {
     let newState = this.state;
@@ -31,6 +33,11 @@ class ListBook extends React.Component {
     let fmajor = major;
     this.filterbook = _.filter(this.props.books, function(object){ return object["major"] === fmajor; });
     //console.log("props "+this.filterbook.name);
+  }
+  getSearch = (search) => {
+    this.search = search;
+    let lowerSearch = search.toLowerCase();
+    this.filterbook = _.filter(this.props.books, function(object){ return object["name"].toLowerCase() === lowerSearch; });
   }
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
