@@ -1,13 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Item, Header, Loader, Button, Segment, Divider, Icon, Card, Image, Feed } from 'semantic-ui-react';
+import { Container, Item, Header, Loader, Button, Segment, Divider, Icon } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserInfo } from '../../api/userinfo/UserInfo';
 import { Books } from '../../api/book/Book';
-import ProfileBook from '../components/ProfileBook';
-import ProfileList from '../components/ProfileList';
+import ProfileBookItem from '../components/ProfileBookItem';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Profile extends React.Component {
@@ -40,6 +39,12 @@ class Profile extends React.Component {
               </Item>
             </Item.Group>
           </Segment>
+          <Divider horizontal style={{ padding: 50 }}>
+            <Header as='h2'>Listings</Header>
+          </Divider>
+          <Item.Group divided>
+            {this.props.books.map((book, index) => <ProfileBookItem key={index} book={book}/>)}
+          </Item.Group>
         </Container>
     );
   }
@@ -48,7 +53,7 @@ class Profile extends React.Component {
 /** Require an array of Book documents in the props. */
 Profile.propTypes = {
   userInfo: PropTypes.object.isRequired,
-  books: PropTypes.object.isRequired,
+  books: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
   currentId: PropTypes.string,
@@ -62,7 +67,7 @@ export default withTracker(({ match }) => {
   const subscription2 = Meteor.subscribe('AllBook');
   return {
     userInfo: UserInfo.findOne({ user: userName }) ? UserInfo.findOne({ user: userName }) : {},
-    books: Books.find({}).fetch(),
+    books: Books.find({ owner: userName }).fetch(),
     ready: subscription.ready() && subscription2.ready(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
     currentId: match.params._id,
