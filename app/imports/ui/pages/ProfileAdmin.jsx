@@ -5,9 +5,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { UserInfo } from '../../api/userinfo/UserInfo';
-/** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
-class Profile extends React.Component {
+import { Books } from '../../api/book/Book';
+import ProfileBookItem from '../components/ProfileBookItem';
 
+/** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
+class ProfileAdmin extends React.Component {
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
@@ -20,12 +22,10 @@ class Profile extends React.Component {
           <Segment>
             <Item.Group>
               <Item>
-                <Item.Image size='medium' src='/images/default_image.png'/>
+                <Item.Image size='medium' src={this.props.userInfo.image} onError={(i) => i.target.src='/images/default_image.png'}/>
 
                 <Item.Content>
-                  <Button floated='right'><Icon name='lock'/></Button>)
-                  {/* eslint-disable-next-line max-len */}
-                    <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'><Icon name='left chevron'/>Edit</Button>
+                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'><Icon name='left chevron'/>Edit</Button>)
                   <Item.Header as='a'>{this.props.userInfo.firstName} {this.props.userInfo.lastName}</Item.Header>
                   <Item.Meta>{this.props.userInfo.user}</Item.Meta>
                   <Item.Meta>{this.props.userInfo.number}</Item.Meta>
@@ -36,36 +36,11 @@ class Profile extends React.Component {
               </Item>
             </Item.Group>
           </Segment>
-
           <Divider horizontal style={{ padding: 50 }}>
-            <Header as='h2'>Listings</Header>
+            <Header as='h2'> Books Sold By {this.props.userInfo.firstName}</Header>
           </Divider>
           <Item.Group divided>
-            <Item>
-              <Item.Image size='tiny' src='/images/default_image.png'/>
-
-              <Item.Content>
-                <Item.Header as='a'>Header</Item.Header>
-                <Item.Meta>Description</Item.Meta>
-                <Item.Description>
-                  DESCRIPTION
-                </Item.Description>
-                <Item.Extra>Additional Details</Item.Extra>
-              </Item.Content>
-            </Item>
-
-            <Item>
-              <Item.Image size='tiny' src='/images/default_image.png'/>
-
-              <Item.Content>
-                <Item.Header as='a'>Header</Item.Header>
-                <Item.Meta>Description</Item.Meta>
-                <Item.Description>
-                  dESCRIPTION
-                </Item.Description>
-                <Item.Extra>Additional Details</Item.Extra>
-              </Item.Content>
-            </Item>
+            {this.props.books.map((book, index) => <ProfileBookItem key={index} book={book}/>)}
           </Item.Group>
         </Container>
     );
@@ -73,8 +48,9 @@ class Profile extends React.Component {
 }
 
 /** Require an array of Book documents in the props. */
-Profile.propTypes = {
+ProfileAdmin.propTypes = {
   userInfo: PropTypes.object.isRequired,
+  books: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
   currentId: PropTypes.string,
@@ -85,10 +61,12 @@ export default withTracker(({ match }) => {
   const userAccount = Meteor.users.findOne(match.params._id);
   const userName = userAccount ? userAccount.username : '';
   const subscription = Meteor.subscribe('UserInfo');
+  const subscription2 = Meteor.subscribe('AllBook');
   return {
     userInfo: UserInfo.findOne({ user: userName }) ? UserInfo.findOne({ user: userName }) : {},
-    ready: subscription.ready(),
+    books: Books.find({ owner: userName }).fetch(),
+    ready: subscription.ready() && subscription2.ready(),
     currentUser: Meteor.user() ? Meteor.user().username : '',
     currentId: match.params._id,
   };
-})(Profile);
+})(ProfileAdmin);

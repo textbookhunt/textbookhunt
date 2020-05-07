@@ -1,7 +1,7 @@
 import React from 'react';
-import { Item } from 'semantic-ui-react';
+import { Card, Item } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */
 class BookItem extends React.Component {
   render() {
@@ -20,6 +20,11 @@ class BookItem extends React.Component {
               <p>Major: {this.props.book.major}</p>
               <p>Condition: {this.props.book.condition}</p>
             </Item.Extra>
+            <Item.Content extra>
+              <p>
+                <Link to={`/listing/${this.props.book._id}`}>view more this Book Information</Link>
+              </p>
+            </Item.Content>
           </Item.Content>
         </Item>
     );
