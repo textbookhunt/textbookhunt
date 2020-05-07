@@ -54,7 +54,7 @@ class ListBook extends React.Component {
         <div>
         <Container>
 
-          <Header as="h2" textAlign="center">Browse for Books</Header>
+          <Header as="h1" textAlign="center">Browse for Books</Header>
 
         </Container>
           <Search sendSearch={this.getSearch.bind(this)}/>
@@ -75,8 +75,8 @@ class ListBook extends React.Component {
               { this.state.major === 'All Majors' ? (
                   <Card.Group> {this.props.books.map((book, index) => <BookItem key={index}
                                                                                 book={book}/>)}</Card.Group>
-              ) : <Card.Group> {this.filterbook.map((book, index) => <BookItem key={index}
-                                                                               book={book}/>)}</Card.Group>
+              ) :( this.filterbook.length === 0 ? (<Header as = "h2"textAlign="center" style={{color :'red', marginRight: "40px"}} >cannot find your book</Header>):<Card.Group> { this.filterbook.map((book, index) => <BookItem key={index}
+                                                                               book={book}/>)}</Card.Group> )
               }
 
 
