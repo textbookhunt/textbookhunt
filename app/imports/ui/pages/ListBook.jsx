@@ -27,10 +27,8 @@ class ListBook extends React.Component {
     }
     this.setState(newState);
     this.major =major;
-    //console.log("major p "+this.major);
     let fmajor = major;
     this.filterbook = _.filter(this.props.books, function(object){ return object["major"] === fmajor; });
-    //console.log("props "+this.filterbook.name);
   }
   getSearch = (search) => {
     let newState;
@@ -39,11 +37,8 @@ class ListBook extends React.Component {
     }
     this.setState(newState);
     this.search = search;
-    console.log("get"+search);
     let lowerSearch = search.toLowerCase();
-    console.log("get "+lowerSearch);
     this.filterbook = _.filter(this.props.books, function(object){ return object["name"].toLowerCase() === lowerSearch; });
-    console.log("props "+this.filterbook);
   }
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -65,7 +60,7 @@ class ListBook extends React.Component {
           <Search sendSearch={this.getSearch.bind(this)}/>
           <Grid>
             <div style={{marginLeft: "20px", marginTop: "40px"}}>
-          <Header>filter: </Header>
+          <Header>Filter: </Header>
 
           <br/>
           <div style={{marginLeft: "20px"}}>
@@ -105,12 +100,12 @@ ListBook.propTypes = {
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
-  // Get access to Book documents.
+
   const subscription = Meteor.subscribe('AllBook');
 
 
 
-  //console.log("major is "+ListBook.state.major);
+
 
 
   return {

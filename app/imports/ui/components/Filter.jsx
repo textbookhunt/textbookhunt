@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 
 
+
 export class Filter extends React.Component {
   state = { isFilter: false, major: 'All Majors' };
   major;
@@ -15,10 +16,8 @@ export class Filter extends React.Component {
     this.major = 'All Major';
   }
   select(major){
-    //this.setState({isFilter: true, major : major});
     this.major = major;
     this.props.sendMajor(this.major);
-    //console.log("this is "+ this.major);
 
 
   }
@@ -49,5 +48,9 @@ export class Filter extends React.Component {
     );
   }
 }
+Filter.propTypes = {
+  search: PropTypes.array,
 
+
+};
 export default withRouter(Filter);

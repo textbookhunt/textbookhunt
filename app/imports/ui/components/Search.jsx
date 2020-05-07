@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Input, Icon, Segment } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 
 
 export class Search extends React.Component {
@@ -15,14 +15,12 @@ export class Search extends React.Component {
 
   }
   lookFor(){
-    //this.setState({isFilter: true, major : major});
+
     if (this.search.value!=='')
     {
-
-      console.log(this.search.value);
       this.props.sendSearch(this.search.value);
     }
-    //this.props.sendSearch(this.search);
+
 
 
 
@@ -43,9 +41,5 @@ export class Search extends React.Component {
     );
   }
 }
-Search.propTypes = {
-  search: PropTypes.string,
 
-
-};
 export default withRouter(Search);
