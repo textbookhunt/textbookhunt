@@ -21,9 +21,9 @@ class ListBook extends React.Component {
     this.search ='';
   }
   getMajor = (major) => {
-    let newState = this.state;
+    let newState;
     newState = {
-     major: major,
+     major: major
     }
     this.setState(newState);
     this.major =major;
@@ -33,9 +33,17 @@ class ListBook extends React.Component {
     //console.log("props "+this.filterbook.name);
   }
   getSearch = (search) => {
+    let newState;
+    newState = {
+      major: 'search'
+    }
+    this.setState(newState);
     this.search = search;
+    console.log("get"+search);
     let lowerSearch = search.toLowerCase();
+    console.log("get "+lowerSearch);
     this.filterbook = _.filter(this.props.books, function(object){ return object["name"].toLowerCase() === lowerSearch; });
+    console.log("props "+this.filterbook);
   }
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -54,9 +62,9 @@ class ListBook extends React.Component {
           <Header as="h2" textAlign="center">Browse for Books</Header>
 
         </Container>
-
+          <Search sendSearch={this.getSearch.bind(this)}/>
           <Grid>
-            <div style={{marginLeft: "20px"}}>
+            <div style={{marginLeft: "20px", marginTop: "40px"}}>
           <Header>filter: </Header>
 
           <br/>

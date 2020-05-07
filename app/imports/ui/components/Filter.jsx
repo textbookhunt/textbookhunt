@@ -49,9 +49,5 @@ export class Filter extends React.Component {
     );
   }
 }
-Filter.propTypes = {
-  majors: PropTypes.array,
 
-
-};
 export default withRouter(Filter);
