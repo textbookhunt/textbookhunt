@@ -45,8 +45,11 @@ class Listing extends React.Component {
                 <Grid.Column width={5}>
                   <Image size='medium' src={this.props.item.image}/>
                 </Grid.Column>
+
                 <Grid.Column width={11} style={{ paddingBottom: "30px" }}>
-                  <Header as={NavLink} exact to={`/Profile/${this.props.item.ownerId}`}>Seller: <a>{this.props.item.owner}</a></Header>
+
+                  <Header as={NavLink} exact to={`/Profile/${this.props.item.ownerId}`}>Seller: {this.props.item.owner}</Header>
+
                   <p className='listing-details'><b>Price:</b> ${this.props.item.price}</p>
                   <p className='listing-details'><b>Condition:</b> {this.props.item.condition}</p>
                   <p className='listing-details'><b>Major:</b> {this.props.item.major}</p>

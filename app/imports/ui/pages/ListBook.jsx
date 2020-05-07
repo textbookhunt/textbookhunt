@@ -4,26 +4,26 @@ import { Container, Card, Header, Loader, Grid, Button } from 'semantic-ui-react
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
-import { Notes } from '../../api/notes/Notes'
 import BookItem from '../components/BookItem';
-//import Filter from '../components/Filter';
 import { Filter } from '../components/Filter';
-import { NavLink } from 'react-router-dom';
+import Search from '../components/Search';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class ListBook extends React.Component {
     filterbook;
     major;
+    search;
   constructor(props) {
     super(props);
     this.state = {major: 'All Majors'}
     this.filterbook = {};
     this.major = 'All Major';
+    this.search ='';
   }
   getMajor = (major) => {
-    let newState = this.state;
+    let newState;
     newState = {
-     major: major,
+     major: major
     }
     this.setState(newState);
     this.major =major;
@@ -31,6 +31,19 @@ class ListBook extends React.Component {
     let fmajor = major;
     this.filterbook = _.filter(this.props.books, function(object){ return object["major"] === fmajor; });
     //console.log("props "+this.filterbook.name);
+  }
+  getSearch = (search) => {
+    let newState;
+    newState = {
+      major: 'search'
+    }
+    this.setState(newState);
+    this.search = search;
+    console.log("get"+search);
+    let lowerSearch = search.toLowerCase();
+    console.log("get "+lowerSearch);
+    this.filterbook = _.filter(this.props.books, function(object){ return object["name"].toLowerCase() === lowerSearch; });
+    console.log("props "+this.filterbook);
   }
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -49,8 +62,9 @@ class ListBook extends React.Component {
           <Header as="h2" textAlign="center">Browse for Books</Header>
 
         </Container>
+          <Search sendSearch={this.getSearch.bind(this)}/>
           <Grid>
-            <div style={{marginLeft: "20px"}}>
+            <div style={{marginLeft: "20px", marginTop: "40px"}}>
           <Header>filter: </Header>
 
           <br/>
@@ -84,7 +98,6 @@ class ListBook extends React.Component {
 ListBook.propTypes = {
   books: PropTypes.array.isRequired,
   majors: PropTypes.array.isRequired,
-  notes: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 
 
@@ -95,7 +108,7 @@ export default withTracker(() => {
   // Get access to Book documents.
   const subscription = Meteor.subscribe('AllBook');
 
-  const subscription2 = Meteor.subscribe('Notes');
+
 
   //console.log("major is "+ListBook.state.major);
 
@@ -103,9 +116,8 @@ export default withTracker(() => {
   return {
 
     books: Books.find({}).fetch(),
-    notes: Notes.find({}).fetch(),
     majors: Books.find({}).fetch(),
-    ready: subscription.ready() && subscription2.ready(),
+    ready: subscription.ready(),
 
   };
 })(ListBook);
