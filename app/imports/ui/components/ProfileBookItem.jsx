@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Item } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 /** Renders a single row in the List Stuff table. See pages/ListStuff.jsx. */

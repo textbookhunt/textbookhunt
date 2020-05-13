@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { Books } from '../../api/book/Book';
 import { Notes } from '../../api/notes/Notes';
 import Note from '/imports/ui/components/Note';
-import AddNotes from '/imports/ui/components/AddNotes'
+import AddNotes from '/imports/ui/components/AddNotes';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class Listing extends React.Component {
@@ -29,7 +29,12 @@ class Listing extends React.Component {
               <Header style={{ fontSize: 25 }} textAlign='center' >{this.props.item.name}</Header>
             { this.props.currentUser === this.props.item.owner ? (
                 <Button as={NavLink} exact to='/list' floated='right'
-                        onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.removeBook(this.props.item._id); } } color='red'>
+                        onClick={() => {
+                          // eslint-disable-next-line
+                          if (window.confirm('Are you sure you wish to delete this item?')) {
+                            this.removeBook(this.props.item._id);
+                          }
+                } } color='red'>
                   Delete
                 </Button>
             ) : ''
@@ -46,9 +51,11 @@ class Listing extends React.Component {
                   <Image size='medium' src={this.props.item.image}/>
                 </Grid.Column>
 
-                <Grid.Column width={11} style={{ paddingBottom: "30px" }}>
+                <Grid.Column width={11} style={{ paddingBottom: '30px' }}>
 
-                  <Header as={NavLink} exact to={`/Profile/${this.props.item.ownerId}`}>Seller: {this.props.item.owner}</Header>
+                  <Header as={NavLink} exact to={`/Profile/${this.props.item.ownerId}`}>
+                    Seller: {this.props.item.owner}
+                  </Header>
 
                   <p className='listing-details'><b>Price:</b> ${this.props.item.price}</p>
                   <p className='listing-details'><b>Condition:</b> {this.props.item.condition}</p>
@@ -63,7 +70,8 @@ class Listing extends React.Component {
                 {this.props.currentUser === '' ? '' : (
                   <AddNotes owner={this.props.currentUser} book={this.props.item._id} ownerId={this.props.currentId}/>)
                 }
-                {this.props.notes.map((note, index) => <Note key={index} note={note} currentUser={this.props.currentUser}/>)}
+                {this.props.notes.map((note, index) => <Note key={index} note={note} currentUser={
+                  this.props.currentUser}/>)}
               </Feed>
             </Segment>
           </Container>

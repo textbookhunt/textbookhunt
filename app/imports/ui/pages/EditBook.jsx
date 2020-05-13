@@ -23,14 +23,14 @@ class EditBook extends React.Component {
   submit(data) {
     const { name, price, description, image, owner, condition, _id, major } = data;
     Books.update(_id, { $set: { name, price, description, image, owner, major, condition } }, (error) =>{
-      if(error){
+      if (error) {
         swal('Error', error.message, 'error');
-      }
-      else{
+      } else {
         swal('Success', 'Book updated successfully', 'success');
-        this.props.history.push('/list', { some: 'state' })
+        // eslint-disable-next-line react/prop-types
+        this.props.history.push('/list', { some: 'state' });
       }
-    })
+    });
   }
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
@@ -44,7 +44,10 @@ class EditBook extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Edit Book Information</Header>
-            <AutoForm schema={BookSchema} onSubmit={data => { if (window.confirm('Are you sure you wish to save your changes?')) this.submit(data); } } model={this.props.doc}>
+            <AutoForm schema={BookSchema} onSubmit={data => {
+              // eslint-disable-next-line
+              if (window.confirm('Are you sure you wish to save your changes?')) this.submit(data);
+            } } model={this.props.doc}>
               <Segment>
                 <TextField name='name'/>
                 <TextField name = 'major'/>

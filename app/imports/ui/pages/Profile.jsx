@@ -22,11 +22,15 @@ class Profile extends React.Component {
           <Segment>
             <Item.Group>
               <Item>
-                <Item.Image size='medium' src={this.props.userInfo.image} onError={(i) => i.target.src='/images/default_image.png'}/>
+                <Item.Image size='medium' src={this.props.userInfo.image}
+                            // eslint-disable-next-line
+                            onError={(i) => i.target.src='/images/default_image.png'}/>
 
                 <Item.Content>
                   {this.props.currentUser === '' ? (<Button floated='right'><Icon name='lock'/></Button>) : (
-                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'><Icon name='left chevron'/>Edit</Button>
+                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'>
+                        <Icon name='left chevron'/>Edit
+                      </Button>
                   )
                   }
                   <Item.Header as='a'>{this.props.userInfo.firstName} {this.props.userInfo.lastName}</Item.Header>

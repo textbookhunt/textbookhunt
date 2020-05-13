@@ -22,10 +22,14 @@ class ProfileAdmin extends React.Component {
           <Segment>
             <Item.Group>
               <Item>
-                <Item.Image size='medium' src={this.props.userInfo.image} onError={(i) => i.target.src='/images/default_image.png'}/>
+                <Item.Image size='medium' src={this.props.userInfo.image} onError={
+                  // eslint-disable-next-line
+                  (i) => i.target.src='/images/default_image.png'}/>
 
                 <Item.Content>
-                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'><Icon name='left chevron'/>Edit</Button>)
+                      <Button as={NavLink} exact to={`/editProfile/${this.props.currentId}`} floated='right'>
+                        <Icon name='left chevron'/>Edit
+                      </Button>)
                   <Item.Header as='a'>{this.props.userInfo.firstName} {this.props.userInfo.lastName}</Item.Header>
                   <Item.Meta>{this.props.userInfo.user}</Item.Meta>
                   <Item.Meta>{this.props.userInfo.number}</Item.Meta>

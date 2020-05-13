@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Card, Header, Loader, Grid, Button } from 'semantic-ui-react';
+import { _ } from 'meteor/underscore';
+import { Container, Card, Header, Loader, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Books } from '../../api/book/Book';
@@ -10,36 +11,42 @@ import Search from '../components/Search';
 
 /** Renders a table containing all of the Book documents. Use <BookItem> to render each row. */
 class ListBook extends React.Component {
-    filterbook;
+    filterBook;
+
     major;
+
     search;
+
   constructor(props) {
     super(props);
-    this.state = {major: 'All Majors'}
-    this.filterbook = {};
+    this.state = { major: 'All Majors' };
+    this.filterBook = {};
     this.major = 'All Major';
-    this.search ='';
+    this.search = '';
   }
+
   getMajor = (major) => {
-    let newState;
-    newState = {
-     major: major
-    }
+    const newState = {
+     major: major,
+    };
     this.setState(newState);
-    this.major =major;
-    let fmajor = major;
-    this.filterbook = _.filter(this.props.books, function(object){ return object["major"] === fmajor; });
+    this.major = major;
+    const fMajor = major;
+    this.filterBook = _.filter(this.props.books, function (object) { return object.major === fMajor; });
   }
+
   getSearch = (search) => {
-    let newState;
-    newState = {
-      major: 'search'
-    }
+    const newState = {
+      major: 'search',
+    };
     this.setState(newState);
     this.search = search;
-    let lowerSearch = search.toLowerCase();
-    this.filterbook = _.filter(this.props.books, function(object){ return object["name"].toLowerCase() === lowerSearch; });
+    const lowerSearch = search.toLowerCase();
+    this.filterBook = _.filter(this.props.books, function (object) {
+      return object.name.toLowerCase() === lowerSearch;
+    });
   }
+
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
 
@@ -59,24 +66,30 @@ class ListBook extends React.Component {
         </Container>
           <Search sendSearch={this.getSearch.bind(this)}/>
           <Grid>
-            <div style={{marginLeft: "20px", marginTop: "40px"}}>
+            <div style={{ marginLeft: '20px', marginTop: '40px' }}>
           <Header>Filter: </Header>
 
           <br/>
-          <div style={{marginLeft: "20px"}}>
-          <Filter sendMajor={this.getMajor.bind(this)} majors={_.uniq(_.pluck(this.props.majors,'major'))}  />
+          <div style={{ marginLeft: '20px' }}>
+          <Filter sendMajor={this.getMajor.bind(this)} majors={_.uniq(_.pluck(this.props.majors, 'major'))} />
           </div>
 
             </div>
-            <Container style={{marginTop: "40px"}}>
+            <Container style={{ marginTop: '40px' }}>
             <Grid.Column width={12}>
 
 
+              {/* eslint-disable-next-line no-nested-ternary */}
               { this.state.major === 'All Majors' ? (
                   <Card.Group> {this.props.books.map((book, index) => <BookItem key={index}
                                                                                 book={book}/>)}</Card.Group>
-              ) :( this.filterbook.length === 0 ? (<Header as = "h2"textAlign="center" style={{color :'red', marginRight: "40px"}} >cannot find your book</Header>):<Card.Group> { this.filterbook.map((book, index) => <BookItem key={index}
-                                                                               book={book}/>)}</Card.Group> )
+              ) : (this.filterBook.length === 0 ? (
+                  <Header as = "h2" textAlign="center" style={{ color: 'red', marginRight: '40px' }} >
+                    cannot find your book
+                  </Header>
+              ) : (<Card.Group> {
+                this.filterBook.map((book, index) => <BookItem key={index} book={book}/>)
+              }</Card.Group>))
               }
 
 
@@ -102,10 +115,6 @@ ListBook.propTypes = {
 export default withTracker(() => {
 
   const subscription = Meteor.subscribe('AllBook');
-
-
-
-
 
 
   return {

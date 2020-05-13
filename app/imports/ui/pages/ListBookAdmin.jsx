@@ -21,9 +21,9 @@ class ListBookAdmin extends React.Component {
         <Container>
           <Header as="h2" textAlign="center">Browse for Books</Header>
           <Card.Group>
-            {this.props.books.map((book, index) => <BookItemAdmin key={index}
-                                                             book={book}
-                                                             notes={this.props.notes.filter(note => (note.contactId === book._id))}/>)}
+            {this.props.books.map((book, index) => <BookItemAdmin key={index} book={book} notes=
+                {this.props.notes.filter(note => (note.contactId === book._id))
+                }/>)}
           </Card.Group>
         </Container>
     );

@@ -2,7 +2,6 @@ import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import { AutoForm, ErrorsField, HiddenField, SubmitField, TextField } from 'uniforms-semantic';
 import swal from 'sweetalert';
-import { Meteor } from 'meteor/meteor';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 import PropTypes from 'prop-types';
 import { Notes, NoteSchema } from '../../api/notes/Notes';

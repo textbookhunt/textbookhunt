@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
-import { AutoForm, ErrorsField, LongTextField, NumField, SelectField, SubmitField, TextField, HiddenField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, LongTextField, NumField,
+  SelectField, SubmitField, TextField, HiddenField } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
@@ -32,7 +33,10 @@ class AddBook extends React.Component {
         <Grid container centered>
           <Grid.Column>
             <Header as="h2" textAlign="center">Sell Textbook</Header>
-            <AutoForm ref={ref => { fRef = ref; }} schema={BookSchema} onSubmit={data => { if (window.confirm('Are you sure you wish to sell this textbook?')) this.submit(data, fRef); } } >
+            <AutoForm ref={ref => { fRef = ref; }} schema={BookSchema} onSubmit={data => {
+              // eslint-disable-next-line
+              if (window.confirm('Are you sure you wish to sell this textbook?')) this.submit(data, fRef);
+            } } >
               <Segment>
                 <TextField className='disabled field' value={`${currentUser}`} name='owner'/>
                 <TextField name='name'/>
