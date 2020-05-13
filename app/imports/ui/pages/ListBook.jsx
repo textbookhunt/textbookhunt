@@ -67,7 +67,7 @@ class ListBook extends React.Component {
           <Search sendSearch={this.getSearch.bind(this)}/>
           <Grid>
             <div style={{ marginLeft: '20px', marginTop: '40px' }}>
-          <Header>Filter: </Header>
+          <Header>Filter by major: </Header>
 
           <br/>
           <div style={{ marginLeft: '20px' }}>

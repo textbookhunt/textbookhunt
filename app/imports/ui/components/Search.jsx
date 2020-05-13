@@ -34,7 +34,7 @@ export class Search extends React.Component {
           <input style={{ marginLeft: `${20}px`, height: `${40}px`, width: `${200}px`,
             borderRadius: `${10}px`, outline: 'none' }}
                  // eslint-disable-next-line no-return-assign
-                 type="search" ref={input => this.search = input} placeholder="please enter the book name" required />
+                 type="search" ref={input => this.search = input} placeholder="Search by book name" required />
 
           <Button style={{ marginRight: '20px', backgroundColor: 'black', color: 'white' }}
                   onClick={() => this.lookFor()}>Search</Button>

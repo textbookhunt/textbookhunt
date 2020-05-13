@@ -21,9 +21,6 @@ class BookItem extends React.Component {
               <p>Condition: {this.props.book.condition}</p>
             </Item.Extra>
             <Item.Content extra>
-              <p>
-                <Link to={`/listing/${this.props.book._id}`}>view more this Book Information</Link>
-              </p>
             </Item.Content>
           </Item.Content>
         </Item>

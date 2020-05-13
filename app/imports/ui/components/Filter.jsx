@@ -36,9 +36,6 @@ export class Filter extends React.Component {
 
     return (
         <div>
-          <Header>Major: </Header>
-          <p>{ this.major }</p>
-
           <div>
             <Dropdown text="Pick a major" clearable >
             <Dropdown.Menu>
