@@ -17,6 +17,7 @@ Meteor.publish('AllBook', function publish() {
 
     return Books.find();
 
+  // eslint-disable-next-line no-unreachable
   return this.ready();
 });
 /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */

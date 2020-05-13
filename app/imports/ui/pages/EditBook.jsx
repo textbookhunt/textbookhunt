@@ -22,7 +22,7 @@ class EditBook extends React.Component {
   /** On successful submit, insert the data. */
   submit(data) {
     const { name, price, description, image, owner, condition, _id, major } = data;
-    Books.update(_id, { $set: { name, price, description, image, owner, major, condition } }, (error) =>{
+    Books.update(_id, { $set: { name, price, description, image, owner, major, condition } }, (error) => {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
