@@ -1,7 +1,9 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "firstName": "admin", "lastName": "admin", "major": "admin", "role": "admin" },
-    { "email": "john@foo.com", "password": "changeme", "firstName": "john", "lastName": "Foo", "major": "Math" }
+    { "email": "admin@foo.com", "password": "changeme", "firstName": "admin", "lastName": "admin",
+      "image": "/images/default_image.png","major": "ICS", "description": "test description", "role": "admin" },
+    { "email": "john@foo.com", "password": "changeme", "firstName": "john", "lastName": "Foo", "image": "/images/default_image.png",
+      "major": "Math", "description": "test description" }
   ],
   "defaultBook": [
     {"name":  "Introduction to Real Analysis", "price":  40, "owner":  "john@foo.com", "condition":  "excellent", "description":  "Math 331 textbook", "image":  "https://images-na.ssl-images-amazon.com/images/I/81I2w0QnKfL.jpg",
