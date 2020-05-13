@@ -48,7 +48,6 @@ class AddBook extends React.Component {
                 <HiddenField name='ownerId' value={currentId}/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
-                <TextField class='disabled field' name='owner'/>
               </Segment>
             </AutoForm>
           </Grid.Column>
